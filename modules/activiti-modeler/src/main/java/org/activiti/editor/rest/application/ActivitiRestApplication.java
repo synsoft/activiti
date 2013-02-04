@@ -12,9 +12,11 @@
  */
 package org.activiti.editor.rest.application;
 
+import org.activiti.editor.rest.main.APCEditorRestResource;
 import org.activiti.editor.rest.main.EditorRestResource;
 import org.activiti.editor.rest.main.PluginRestResource;
 import org.activiti.editor.rest.main.StencilsetRestResource;
+import org.activiti.editor.rest.model.ModelCreateRestResource;
 import org.activiti.editor.rest.model.ModelEditorJsonRestResource;
 import org.activiti.editor.rest.model.ModelSaveRestResource;
 import org.restlet.Application;
@@ -40,6 +42,11 @@ public class ActivitiRestApplication extends Application {
     router.attach("/editor", EditorRestResource.class);
     router.attach("/editor/plugins", PluginRestResource.class);
     router.attach("/editor/stencilset", StencilsetRestResource.class);
+    
+    router.attach("/model/deployment/{deploymentId}/create", ModelCreateRestResource.class);
+    router.attach("/apceditor/deployment/{deploymentId}", APCEditorRestResource.class);
+    
+    
     
     return router;
   }
