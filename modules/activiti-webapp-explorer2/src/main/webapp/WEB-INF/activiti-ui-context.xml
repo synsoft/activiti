@@ -82,7 +82,6 @@
     <property name="variableRendererManager" ref="variableRendererManager" />
     <property name="applicationMainWindow" ref="mainWindow" />
     <property name="componentFactories" ref="componentFactories" />
-    <property name="workflowDefinitionConversionFactory" ref="workflowDefinitionConversionFactory" />
     <property name="loginHandler" ref="activitiLoginHandler" />
   </bean>
   
@@ -107,7 +106,5 @@
     <property name="mainWindow" ref="mainWindow" />
     <property name="environment" value="${activiti.ui.environment}" />
   </bean>
-
-  <bean name="workflowDefinitionConversionFactory" class="org.activiti.workflow.simple.converter.WorkflowDefinitionConversionFactory" />
   
 </beans>
