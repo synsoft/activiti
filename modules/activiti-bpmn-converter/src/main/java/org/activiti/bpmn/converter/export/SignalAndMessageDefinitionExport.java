@@ -22,21 +22,22 @@ public class SignalAndMessageDefinitionExport implements BpmnXMLConstants {
         if (flowElement instanceof Event) {
           Event event = (Event) flowElement;
           if (event.getEventDefinitions().size() > 0) {
-            EventDefinition eventDefinition = event.getEventDefinitions().get(0);
-            if (eventDefinition instanceof SignalEventDefinition) {
-              SignalEventDefinition signalEvent = (SignalEventDefinition) eventDefinition;
-              if (model.containsSignalId(signalEvent.getSignalRef()) == false) {
-                Signal signal = new Signal(signalEvent.getSignalRef(), signalEvent.getSignalRef());
-                model.addSignal(signal);
-              }
-              
-            } else if (eventDefinition instanceof MessageEventDefinition) {
-              MessageEventDefinition messageEvent = (MessageEventDefinition) eventDefinition;
-              if (model.containsMessageId(messageEvent.getMessageRef()) == false) {
-                Message message = new Message(messageEvent.getMessageRef(), messageEvent.getMessageRef(), null);
-                model.addMessage(message);
-              }
-            }
+        	  for (EventDefinition eventDefinition : event.getEventDefinitions()) {
+//            EventDefinition eventDefinition = event.getEventDefinitions().get(0);
+        		  if (eventDefinition instanceof SignalEventDefinition) {
+        			  SignalEventDefinition signalEvent = (SignalEventDefinition) eventDefinition;
+        			  if (model.containsSignalId(signalEvent.getSignalRef()) == false) {
+        				  Signal signal = new Signal(signalEvent.getSignalRef(), signalEvent.getSignalRef());
+        				  model.addSignal(signal);
+        			  }
+        		  } else if (eventDefinition instanceof MessageEventDefinition) {
+        			  MessageEventDefinition messageEvent = (MessageEventDefinition) eventDefinition;
+        			  if (model.containsMessageId(messageEvent.getMessageRef()) == false) {
+        				  Message message = new Message(messageEvent.getMessageRef(), messageEvent.getMessageRef(), null);
+        				  model.addMessage(message);
+        			  }
+        		  }
+        	  }
           }
         }
       }
