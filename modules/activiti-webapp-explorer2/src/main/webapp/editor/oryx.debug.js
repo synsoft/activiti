@@ -21618,16 +21618,31 @@ Ext.extend(Ext.form.ComplexListField, Ext.form.TriggerField,  {
 		
 		var jsonString = "[";
 		for (var i = 0; i < ds.getCount(); i++) {
-			var data = ds.getAt(i);		
+			var data = ds.getAt(i);	
+			
 			jsonString += "{";	
 			for (var j = 0; j < this.items.length; j++) {
 				var key = this.items[j].id();
+				var title = data.get('title');
+
+				var _items = this.items[j].items();
+
+				//console.log(_items);
+				_items.each(function(value){ 
+					console.log(value.title());
+				});
+				
+			
 				jsonString += key + ':' + ("" + data.get(key)).toJSON();
+				//jsonString += key + ':' + ("" + data.get(key)).toJSON();
+				//jsonString += ", title : " + ("" + "Event").toJSON();
+
 				if (j < (this.items.length - 1)) {
 					jsonString += ", ";
 				}
 			}
 			jsonString += "}";
+
 			if (i < (ds.getCount() - 1)) {
 				jsonString += ", ";
 			}
@@ -21767,13 +21782,13 @@ Ext.extend(Ext.form.ComplexListField, Ext.form.TriggerField,  {
 			} else if (type == ORYX.CONFIG.TYPE_CHOICE) {				
 				var items = this.items[i].items();
 				var select = ORYX.Editor.graft("http://www.w3.org/1999/xhtml", parent, ['select', {style:'display:none'}]);
-				var optionTmpl = new Ext.Template('<option value="{value}">{value}</option>');
+				var optionTmpl = new Ext.Template('<option value="{value}">{title}</option>');
 				items.each(function(value){ 
-					optionTmpl.append(select, {value:value.value()}); 
+					optionTmpl.append(select, {value:value.value(), title:value.title()}); 
 				});				
 				
 				editor = new Ext.form.ComboBox(
-					{ typeAhead: true, triggerAction: 'all', transform:select, lazyRender:true,  msgTarget:'title', width : width});			
+					{ typeAhead: true, triggerAction: 'all', transform:select, lazyRender:true,  msgTarget:'title', width : width, displayField: "title"});			
 			} else if (type == ORYX.CONFIG.TYPE_BOOLEAN) {
 				editor = new Ext.form.Checkbox( { width : width } );
 			} else if (type == ORYX.CONFIG.TYPE_COMPLEX) {
@@ -21786,12 +21801,15 @@ Ext.extend(Ext.form.ComplexListField, Ext.form.TriggerField,  {
 				dataIndex: 	id,
 				resizable: 	true,
 				editor: 	editor,
-				width:		width
+				width:		width,
+				renderer: Ext.util.Format.comboRenderer(editor)
 	        });
 			
 		}
 		return new Ext.grid.ColumnModel(cols);
 	},
+	
+	
 	
 	/**
 	 * After a cell was edited the changes will be commited.
@@ -22006,6 +22024,13 @@ Ext.extend(Ext.form.ComplexListField, Ext.form.TriggerField,  {
 		
 	}
 });
+
+Ext.util.Format.comboRenderer = function(combo){
+    return function(value){
+        var record = combo.findRecord(combo.valueField, value);
+        return record ? record.get(combo.displayField) : combo.valueNotFoundText;
+    }
+}
 
 Ext.form.MultipleComplexListField = function(config, items, key, facade){
     Ext.form.MultipleComplexListField.superclass.constructor.call(this, config);

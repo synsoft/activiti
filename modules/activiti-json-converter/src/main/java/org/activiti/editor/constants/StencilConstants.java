@@ -41,6 +41,8 @@ public interface StencilConstants {
   final String STENCIL_TASK_SCRIPT = "ScriptTask";
   final String STENCIL_TASK_SEND = "SendTask";
   final String STENCIL_TASK_SERVICE = "ServiceTask";
+  final String STENCIL_TASK_ACTION = "ActionTask";
+  final String STENCIL_TASK_STATUS = "StatusTask";
   final String STENCIL_TASK_USER = "UserTask";
   
   final String STENCIL_GATEWAY_EXCLUSIVE = "ExclusiveGateway";
@@ -53,6 +55,8 @@ public interface StencilConstants {
   final String STENCIL_EVENT_BOUNDARY_SIGNAL = "BoundarySignalEvent";
   
   final String STENCIL_EVENT_CATCH_SIGNAL = "CatchSignalEvent";
+  final String STENCIL_EVENTS_CATCH_SIGNAL = "CatchSignalEvents";
+  final String STENCIL_EVENT_CATCH_STATUS = "CatchStatusEvent";
   final String STENCIL_EVENT_CATCH_TIMER = "CatchTimerEvent";
   final String STENCIL_EVENT_CATCH_MESSAGE = "CatchMessageEvent";
   

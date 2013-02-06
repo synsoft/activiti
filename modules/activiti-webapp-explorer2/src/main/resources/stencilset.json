@@ -30,6 +30,17 @@
       "description" : "The descriptive name of the BPMN element.",
       "popular" : true
     } ]
+	}, {
+    "name" : "baseattributes_events",
+    "properties" : [ {
+      "id" : "name",
+      "type" : "String",
+      "title" : "Name",
+      "value" : "Multiple Events",
+      "description" : "The descriptive name of the BPMN element.",
+      "popular" : true,
+      "refToView" : "text_name"
+    } ]
   }, {
     "name" : "diagrambase",
     "properties" : [ {
@@ -309,7 +320,7 @@
       "id" : "servicetaskclass",
       "type" : "String",
       "title" : "Class",
-      "value" : "",
+      "value" : "de.pickert.bpmn.service.ActionService",
       "description" : "Class that implements the service task logic.",
       "popular" : true
     }, {
@@ -333,36 +344,349 @@
       "value" : "",
       "description" : "Process variable name to store the service task result.",
       "popular" : true
-    }, {
+    }, 
+	{
       "id" : "servicetaskfields",
-      "type" : "Complex",
-      "title" : "Class fields",
+      "type" : "Choice",
+      "title" : "Action",
       "value" : "",
       "description" : "Field extensions",
+      "refToView" : "text_name",
       "popular" : true,
-      "complexItems" : [ {
-        "id" : "servicetask_field_name",
-        "name" : "Name",
-        "type" : "String",
-        "value" : "",
-        "width" : 200,
-        "optional" : false
-      }, {
-        "id" : "servicetask_field_value",
-        "name" : "String value",
-        "type" : "String",
-        "value" : "",
-        "width" : 200,
-        "optional" : false
-      }, {
-        "id" : "servicetask_field_expression",
-        "name" : "Expression",
-        "type" : "String",
-        "value" : "",
-        "width" : 200,
-        "optional" : false
-      } ]
-    } ]
+      "items" : [ {
+    		"id" : "v0",
+    		"title": "Default (0)",
+    		"value" : "0"
+    	}, {
+    		"id" : "v1",
+    		"title": "Check Periphery Ready (1)",
+    		"value" : "1"
+    	}, {
+    		"id" : "v2",
+    		"title": "Barcode Reader Disturbed (2)",
+    		"value" : "2"
+    	}, {
+    		"id" : "v3",
+    		"title": "Opc Disturbed (3)",
+    		"value" : "3"
+    	}, {
+    		"id" : "v4",
+    		"title": "MESReady (4)",
+    		"value" : "4"
+    	}, {
+    		"id" : "v5",
+    		"title": "Check Barcode (5)",
+    		"value" : "5"
+    	}, {
+    		"id" : "v6",
+    		"title": "Analyze Process Result (6)",
+    		"value" : "6"
+    	}, {
+    		"id" : "v7",
+    		"title": "Machine Disturbance (7)",
+    		"value" : "7"
+    	}, {
+    		"id" : "v8",
+    		"title": "Machine Ready (8)",
+    		"value" : "8"
+    	}, {
+    		"id" : "v9",
+    		"title": "Check MESReady (9)",
+    		"value" : "9"
+    	}, {
+    		"id" : "v10",
+    		"title": "Start Process (10)",
+    		"value" : "10"
+    	}, {
+    		"id" : "v11",
+    		"title": "Machine Parameter Change (11)",
+    		"value" : "11"
+    	}, {
+    		"id" : "v12",
+    		"title": "Periphery Ready (12)",
+    		"value" : "12"
+    	}, {
+    		"id" : "v13",
+    		"title": "Check Machine Ready (13)",
+    		"value" : "13"
+    	}, {
+    		"id" : "v14",
+    		"title": "Machine Counter (14)",
+    		"value" : "14"
+    	}, {
+    		"id" : "v15",
+    		"title": "Process Step End (15)",
+    		"value" : "15"
+    	}, {
+    		"id" : "v16",
+    		"title": "Add On Part Ok (16)",
+    		"value" : "16"
+    	}, {
+    		"id" : "v17",
+    		"title": "Add On Part Result Quitt (17)",
+    		"value" : "17"
+    	}, {
+    		"id" : "v18",
+    		"title": "Tray Result Quitt (18)",
+    		"value" : "18"
+    	}, {
+    		"id" : "v19",
+    		"title": "Print Label (19)",
+    		"value" : "19"
+    	}, {
+    		"id" : "v20",
+    		"title": "Result Rework (20)",
+    		"value" : "20"
+    	}, {
+    		"id" : "v21",
+    		"title": "Result Good (21)",
+    		"value" : "21"
+    	}, {
+    		"id" : "v22",
+    		"title": "Result Bad (22)",
+    		"value" : "22"
+    	}, {
+    		"id" : "v23",
+    		"title": "Compare Label (23)",
+    		"value" : "23"
+    	}, {
+    		"id" : "v24",
+    		"title": "Store Process Data (24)",
+    		"value" : "24"
+    	}, {
+    		"id" : "v25",
+    		"title": "Change Container (25)",
+    		"value" : "25"
+    	}, {
+    		"id" : "v26",
+    		"title": "Barcode Ok (26)",
+    		"value" : "26"
+    	}, {
+    		"id" : "v27",
+    		"title": "Barcode Not Ok (27)",
+    		"value" : "27"
+    	}, {
+    		"id" : "v28",
+    		"title": "Barcode Missing (28)",
+    		"value" : "28"
+    	}, {
+    		"id" : "v29",
+    		"title": "Print Barcode (29)",
+    		"value" : "29"
+    	}, {
+    		"id" : "v30",
+    		"title": "Load To Container (30)",
+    		"value" : "30"
+    	}, {
+    		"id" : "v31",
+    		"title": "Analyze Part (31)",
+    		"value" : "31"
+    	}, {
+    		"id" : "v32",
+    		"title": "Set New Barcode (32)",
+    		"value" : "32"
+    	}, {
+    		"id" : "v33",
+    		"title": "Data Quitt (33)",
+    		"value" : "33"
+    	}, {
+    		"id" : "v34",
+    		"title": "Set Signal (34)",
+    		"value" : "34"
+    	}, {
+    		"id" : "v35",
+    		"title": "Activate Reader (35)",
+    		"value" : "35"
+    	}, {
+    		"id" : "v36",
+    		"title": "Mark As Printed (36)",
+    		"value" : "36"
+    	}, {
+    		"id" : "v37",
+    		"title": "Print Failed (37)",
+    		"value" : "37"
+    	}, {
+    		"id" : "v38",
+    		"title": "Label Printed (38)",
+    		"value" : "38"
+    	}, {
+    		"id" : "v39",
+    		"title": "Program Changed (39)",
+    		"value" : "39"
+    	}, {
+    		"id" : "v40",
+    		"title": "Verify Barcode (40)",
+    		"value" : "40"
+    	}, {
+    		"id" : "v41",
+    		"title": "Check Tray (41)",
+    		"value" : "41"
+    	}, {
+    		"id" : "v42",
+    		"title": "Tray Ok (42)",
+    		"value" : "42"
+    	}, {
+    		"id" : "v43",
+    		"title": "Tray Not Ok (43)",
+    		"value" : "43"
+    	}, {
+    		"id" : "v44",
+    		"title": "Tray Result Good (44)",
+    		"value" : "44"
+    	}, {
+    		"id" : "v45",
+    		"title": "Tray Result Bad (45)",
+    		"value" : "45"
+    	}, {
+    		"id" : "v46",
+    		"title": "Barcode Result Quitt (46)",
+    		"value" : "46"
+    	}, {
+    		"id" : "v47",
+    		"title": "Verify Result Quitt (47)",
+    		"value" : "47"
+    	}, {
+    		"id" : "v48",
+    		"title": "Scan Failed (48)",
+    		"value" : "48"
+    	}, {
+    		"id" : "v49",
+    		"title": "Allow Process Start (49)",
+    		"value" : "49"
+    	}, {
+    		"id" : "v50",
+    		"title": "Life Sign Response (50)",
+    		"value" : "50"
+    	}, {
+    		"id" : "v51",
+    		"title": "Add On Part Not Ok (51)",
+    		"value" : "51"
+    	}, {
+    		"id" : "v52",
+    		"title": "Fill Carrier (52)",
+    		"value" : "52"
+    	}, {
+    		"id" : "v53",
+    		"title": "Check Carrier Full (53)",
+    		"value" : "53"
+    	}, {
+    		"id" : "v54",
+    		"title": "Collect Barcode (54)",
+    		"value" : "54"
+    	}, {
+    		"id" : "v55",
+    		"title": "Clear Batch (55)",
+    		"value" : "55"
+    	}, {
+    		"id" : "v56",
+    		"title": "Batch Changed (56)",
+    		"value" : "56"
+    	}, {
+    		"id" : "v57",
+    		"title": "Common Data Store (57)",
+    		"value" : "57"
+    	}, {
+    		"id" : "v58",
+    		"title": "Common Data Quitt (58)",
+    		"value" : "58"
+    	}, {
+    		"id" : "v59",
+    		"title": "Tray Result Rework (59)",
+    		"value" : "59"
+    	}, {
+    		"id" : "v60",
+    		"title": "Auto Logout (60)",
+    		"value" : "60"
+    	}, {
+    		"id" : "v61",
+    		"title": "Auto Logout Delay (61)",
+    		"value" : "61"
+    	}, {
+    		"id" : "v62",
+    		"title": "Verify Add On Part (62)",
+    		"value" : "62"
+    	}, {
+    		"id" : "v63",
+    		"title": "Release Inspection Start (63)",
+    		"value" : "63"
+    	}, {
+    		"id" : "v64",
+    		"title": "Machine State Production (64)",
+    		"value" : "64"
+    	}, {
+    		"id" : "v65",
+    		"title": "Machine State Disturbed (65)",
+    		"value" : "65"
+    	}, {
+    		"id" : "v66",
+    		"title": "Machine State Setup (66)",
+    		"value" : "66"
+    	}, {
+    		"id" : "v67",
+    		"title": "Machine State Setup Done (67)",
+    		"value" : "67"
+    	}, {
+    		"id" : "v68",
+    		"title": "Process Reset (68)",
+    		"value" : "68"
+    	}, {
+    		"id" : "v69",
+    		"title": "Store Process Value (69)",
+    		"value" : "69"
+    	}, {
+    		"id" : "v70",
+    		"title": "Store Disturbance Reason (70)",
+    		"value" : "70"
+    	}, {
+    		"id" : "v71",
+    		"title": "Check Bad Part Barcode (71)",
+    		"value" : "71"
+    	}, {
+    		"id" : "v72",
+    		"title": "Store MESData (72)",
+    		"value" : "72"
+    	} ]
+    }]
+  }, {
+    "name" : "actiontaskbase",
+    "properties" : [ {
+      "id" : "servicetaskclass",
+      "type" : "String",
+      "title" : "Class",
+      "value" : "de.pickert.bpmn.service.StatusService",
+      "description" : "Class that implements the service task logic.",
+      "popular" : true
+    }, {
+      "id" : "servicetaskexpression",
+      "type" : "String",
+      "title" : "Expression",
+      "value" : "",
+      "description" : "Service task logic defined with an expression.",
+      "popular" : true
+    }, {
+      "id" : "servicetaskdelegateexpression",
+      "type" : "String",
+      "title" : "Delegate expression",
+      "value" : "",
+      "description" : "Service task logic defined with a delegate expression.",
+      "popular" : true
+    }, {
+      "id" : "servicetaskresultvariable",
+      "type" : "String",
+      "title" : "Result variable name",
+      "value" : "",
+      "description" : "Process variable name to store the service task result.",
+      "popular" : true
+    }, 
+	{
+      "id" : "servicetaskfields",
+      "type" : "String",
+      "title" : "Status",
+      "value" : "",
+      "description" : "Field extensions",
+      "refToView" : "text_name",
+      "popular" : true,
+	}]
   }, {
     "name" : "scripttaskbase",
     "properties" : [ {
@@ -638,14 +962,644 @@
       "popular" : true
     } ]
   }, {
+    "name" : "multiplesignalrefdefinition",
+    "properties" : [ {
+        "id" : "signalref",
+        "type" : "Complex",
+        "name" : "Multiple Events",
+        "title" : "Multiple Events",
+        "refToView" : "text_name",
+        "value" : "",
+        "popular" : true,
+        "complexItems" : [ {
+          "id" : "event",
+          "name" : "Event",
+          "type" : "Choice",
+          "value" : "",
+          "width" : 300,
+          "optional" : false,
+          "items" : [ {
+      			"id" : "0",
+      			"title": "Default (0)",
+      			"value" : "e0"
+	      	},{
+      			"id" : "1",
+      			"title": "Opc connection ready (1)",
+      			"value" : "e1"
+	      	}, {
+	      		"id" : "2",
+	      		"title": "Opc connection disturbed (2)",
+	      		"value" : "e2"
+	      	}, {
+	      		"id" : "3",
+	      		"title": "Barcode connection ready (3)",
+	      		"value" : "e3"
+	      	}, {
+	      		"id" : "4",
+	      		"title": "Barcode connection disturbed (4)",
+	      		"value" : "e4"
+	      	}, {
+	      		"id" : "5",
+	      		"title": "System ready (5)",
+	      		"value" : "e5"
+	      	}, {
+	      		"id" : "6",
+	      		"title": "Barcode event (6)",
+	      		"value" : "e6"
+	      	}, {
+	      		"id" : "7",
+	      		"title": "Barcode ok (7)",
+	      		"value" : "e7"
+	      	}, {
+	      		"id" : "8",
+	      		"title": "Barcode not ok (8)",
+	      		"value" : "e8"
+	      	}, {
+	      		"id" : "9",
+	      		"title": "End process (9)",
+	      		"value" : "e9"
+	      	}, {
+	      		"id" : "10",
+	      		"title": "Machine state production (10)",
+	      		"value" : "e10"
+	      	}, {
+	      		"id" : "11",
+	      		"title": "Machine state disturbed (11)",
+	      		"value" : "e11"
+	      	}, {
+	      		"id" : "12",
+	      		"title": "Machine state setup (12)",
+	      		"value" : "e12"
+	      	}, {
+	      		"id" : "13",
+	      		"title": "Machine counter good (13)",
+	      		"value" : "e13"
+	      	}, {
+	      		"id" : "14",
+	      		"title": "Machine counter bad (14)",
+	      		"value" : "e14"
+	      	}, {
+	      		"id" : "15",
+	      		"title": "Machine counter prod (15)",
+	      		"value" : "e15"
+	      	}, {
+	      		"id" : "16",
+	      		"title": "Process interrupted (16)",
+	      		"value" : "e16"
+	      	}, {
+	      		"id" : "17",
+	      		"title": "Machine setup wrong (17)",
+	      		"value" : "e17"
+	      	}, {
+	      		"id" : "18",
+	      		"title": "Machine setup changed (18)",
+	      		"value" : "e18"
+	      	}, {
+	      		"id" : "19",
+	      		"title": "Mes ready (19)",
+	      		"value" : "e19"
+	      	}, {
+	      		"id" : "20",
+	      		"title": "Mes changed (20)",
+	      		"value" : "e20"
+	      	}, {
+	      		"id" : "21",
+	      		"title": "Machine not ready (21)",
+	      		"value" : "e21"
+	      	}, {
+	      		"id" : "22",
+	      		"title": "Machine ready (22)",
+	      		"value" : "e22"
+	      	}, {
+	      		"id" : "23",
+	      		"title": "End process step (23)",
+	      		"value" : "e23"
+	      	}, {
+	      		"id" : "24",
+	      		"title": "Tray ok (24)",
+	      		"value" : "e24"
+	      	}, {
+	      		"id" : "25",
+	      		"title": "Tray not ok (25)",
+	      		"value" : "e25"
+	      	}, {
+	      		"id" : "26",
+	      		"title": "Add on part (26)",
+	      		"value" : "e26"
+	      	}, {
+	      		"id" : "27",
+	      		"title": "Process result rework (27)",
+	      		"value" : "e27"
+	      	}, {
+	      		"id" : "28",
+	      		"title": "Process result good (28)",
+	      		"value" : "e28"
+	      	}, {
+	      		"id" : "29",
+	      		"title": "Process result bad (29)",
+	      		"value" : "e29"
+	      	}, {
+	      		"id" : "30",
+	      		"title": "Print label (30)",
+	      		"value" : "e30"
+	      	}, {
+	      		"id" : "31",
+	      		"title": "Label printed (31)",
+	      		"value" : "e31"
+	      	}, {
+	      		"id" : "32",
+	      		"title": "Container full (32)",
+	      		"value" : "e32"
+	      	}, {
+	      		"id" : "33",
+	      		"title": "Data request by machine (33)",
+	      		"value" : "e33"
+	      	}, {
+	      		"id" : "34",
+	      		"title": "Check mes ready (34)",
+	      		"value" : "e34"
+	      	}, {
+	      		"id" : "35",
+	      		"title": "Container changed (35)",
+	      		"value" : "e35"
+	      	}, {
+	      		"id" : "36",
+	      		"title": "Check machine ready (36)",
+	      		"value" : "e36"
+	      	}, {
+	      		"id" : "37",
+	      		"title": "Start process (37)",
+	      		"value" : "e37"
+	      	}, {
+	      		"id" : "38",
+	      		"title": "Request new barcode (38)",
+	      		"value" : "e38"
+	      	}, {
+	      		"id" : "39",
+	      		"title": "Data quitt (39)",
+	      		"value" : "e39"
+	      	}, {
+	      		"id" : "40",
+	      		"title": "Next process step (40)",
+	      		"value" : "e40"
+	      	}, {
+	      		"id" : "41",
+	      		"title": "Reset signal quitt (41)",
+	      		"value" : "e41"
+	      	}, {
+	      		"id" : "42",
+	      		"title": "Verify barcode (42)",
+	      		"value" : "e42"
+	      	}, {
+	      		"id" : "43",
+	      		"title": "Barcode result quitt (43)",
+	      		"value" : "e43"
+	      	}, {
+	      		"id" : "44",
+	      		"title": "Verify result quitt (44)",
+	      		"value" : "e44"
+	      	}, {
+	      		"id" : "45",
+	      		"title": "Result stored (45)",
+	      		"value" : "e45"
+	      	}, {
+	      		"id" : "46",
+	      		"title": "Scan timeout (46)",
+	      		"value" : "e46"
+	      	}, {
+	      		"id" : "47",
+	      		"title": "Request scan (47)",
+	      		"value" : "e47"
+	      	}, {
+	      		"id" : "48",
+	      		"title": "Verify tray (48)",
+	      		"value" : "e48"
+	      	}, {
+	      		"id" : "49",
+	      		"title": "Tray result quitt (49)",
+	      		"value" : "e49"
+	      	}, {
+	      		"id" : "50",
+	      		"title": "Add on part quitt (50)",
+	      		"value" : "e50"
+	      	}, {
+	      		"id" : "51",
+	      		"title": "Life sign (51)",
+	      		"value" : "e51"
+	      	}, {
+	      		"id" : "52",
+	      		"title": "Add on part ok (52)",
+	      		"value" : "e52"
+	      	}, {
+	      		"id" : "53",
+	      		"title": "Add on part not ok (53)",
+	      		"value" : "e53"
+	      	}, {
+	      		"id" : "54",
+	      		"title": "Batch changed (54)",
+	      		"value" : "e54"
+	      	}, {
+	      		"id" : "55",
+	      		"title": "Request batch (55)",
+	      		"value" : "e55"
+	      	}, {
+	      		"id" : "56",
+	      		"title": "Batch changed quitt (56)",
+	      		"value" : "e56"
+	      	}, {
+	      		"id" : "57",
+	      		"title": "Common data (57)",
+	      		"value" : "e57"
+	      	}, {
+	      		"id" : "58",
+	      		"title": "Common data quitt (58)",
+	      		"value" : "e58"
+	      	}, {
+	      		"id" : "59",
+	      		"title": "Log out request (59)",
+	      		"value" : "e59"
+	      	}, {
+	      		"id" : "60",
+	      		"title": "Release inspection (60)",
+	      		"value" : "e60"
+	      	}, {
+	      		"id" : "61",
+	      		"title": "Machine state setup done (61)",
+	      		"value" : "e61"
+	      	}, {
+	      		"id" : "62",
+	      		"title": "Reset process (62)",
+	      		"value" : "e62"
+	      	}, {
+	      		"id" : "63",
+	      		"title": "Store process value (63)",
+	      		"value" : "e63"
+	      	}, {
+	      		"id" : "64",
+	      		"title": "Store disturbance reason (64)",
+	      		"value" : "e64"
+	      	}, {
+	      		"id" : "65",
+	      		"title": "Part nok barcode (65)",
+	      		"value" : "e65"
+	      	}, {
+	      		"id" : "66",
+	      		"title": "Store mes data event (66)",
+	      		"value" : "e66"
+      	} ]
+        } ]
+      } ]
+  	}, {
+	    "name" : "statusrefdefinition",
+	    "properties" : [ {
+	      "id" : "signalref",
+	      "type" : "Choice",
+	      "title" : "Event",
+	      "value" : "",
+	      "description" : "Define the signal",
+	      "popular" : true,
+	      "refToView" : "text_name",
+	      "items" : [ 
+	    	{
+	    		"id" : "0",
+	    		"title": "Status = 0",
+	    		"value" : "s0"
+	    	},
+	    	{
+	    		"id" : "1",
+	    		"title": "Status = 1",
+	    		"value" : "s1"
+	    	},
+	    	{
+	    		"id" : "2",
+	    		"title": "Status = 2",
+	    		"value" : "s2"
+	    	},
+	    	{
+	    		"id" : "3",
+	    		"title": "Status = 3",
+	    		"value" : "s3"
+	    	},
+	    	{
+	    		"id" : "4",
+	    		"title": "Status = 4",
+	    		"value" : "s4"
+	    	},
+	    	{
+	    		"id" : "5",
+	    		"title": "Status = 5",
+	    		"value" : "s5"
+	    	},
+	    	{
+	    		"id" : "6",
+	    		"title": "Status = 6",
+	    		"value" : "s6"
+	    	},
+	    	{
+	    		"id" : "7",
+	    		"title": "Status = 7",
+	    		"value" : "s7"
+	    	},
+	    	{
+	    		"id" : "8",
+	    		"title": "Status = 8",
+	    		"value" : "s8"
+	    	},
+	    	{
+	    		"id" : "9",
+	    		"title": "Status = 9",
+	    		"value" : "s9"
+	    	},
+	    	{
+	    		"id" : "10",
+	    		"title": "Status = 10",
+	    		"value" : "s10"
+	    	},
+	    	{
+	    		"id" : "11",
+	    		"title": "Status = 11",
+	    		"value" : "s11"
+	    	}]    	  
+	    } ]
+	}, {
     "name" : "signalrefdefinition",
     "properties" : [ {
       "id" : "signalref",
-      "type" : "String",
-      "title" : "Signal reference",
+      "type" : "Choice",
+      "title" : "Event",
       "value" : "",
       "description" : "Define the signal name.",
-      "popular" : true
+      "popular" : true,
+      "refToView" : "text_name",
+      "items" : [ {
+			"id" : "0",
+  			"title": "Default (0)",
+  			"value" : "e0"
+      	},{
+    		"id" : "1",
+    		"title": "Opc connection ready (1)",
+    		"value" : "e1"
+    	}, {
+    		"id" : "2",
+    		"title": "Opc connection disturbed (2)",
+    		"value" : "e2"
+    	}, {
+    		"id" : "3",
+    		"title": "Barcode connection ready (3)",
+    		"value" : "e3"
+    	}, {
+    		"id" : "4",
+    		"title": "Barcode connection disturbed (4)",
+    		"value" : "e4"
+    	}, {
+    		"id" : "5",
+    		"title": "System ready (5)",
+    		"value" : "e5"
+    	}, {
+    		"id" : "6",
+    		"title": "Barcode event (6)",
+    		"value" : "e6"
+    	}, {
+    		"id" : "7",
+    		"title": "Barcode ok (7)",
+    		"value" : "e7"
+    	}, {
+    		"id" : "8",
+    		"title": "Barcode not ok (8)",
+    		"value" : "e8"
+    	}, {
+    		"id" : "9",
+    		"title": "End process (9)",
+    		"value" : "e9"
+    	}, {
+    		"id" : "10",
+    		"title": "Machine state production (10)",
+    		"value" : "e10"
+    	}, {
+    		"id" : "11",
+    		"title": "Machine state disturbed (11)",
+    		"value" : "e11"
+    	}, {
+    		"id" : "12",
+    		"title": "Machine state setup (12)",
+    		"value" : "e12"
+    	}, {
+    		"id" : "13",
+    		"title": "Machine counter good (13)",
+    		"value" : "e13"
+    	}, {
+    		"id" : "14",
+    		"title": "Machine counter bad (14)",
+    		"value" : "e14"
+    	}, {
+    		"id" : "15",
+    		"title": "Machine counter prod (15)",
+    		"value" : "e15"
+    	}, {
+    		"id" : "16",
+    		"title": "Process interrupted (16)",
+    		"value" : "e16"
+    	}, {
+    		"id" : "17",
+    		"title": "Machine setup wrong (17)",
+    		"value" : "e17"
+    	}, {
+    		"id" : "18",
+    		"title": "Machine setup changed (18)",
+    		"value" : "e18"
+    	}, {
+    		"id" : "19",
+    		"title": "Mes ready (19)",
+    		"value" : "e19"
+    	}, {
+    		"id" : "20",
+    		"title": "Mes changed (20)",
+    		"value" : "e20"
+    	}, {
+    		"id" : "21",
+    		"title": "Machine not ready (21)",
+    		"value" : "e21"
+    	}, {
+    		"id" : "22",
+    		"title": "Machine ready (22)",
+    		"value" : "e22"
+    	}, {
+    		"id" : "23",
+    		"title": "End process step (23)",
+    		"value" : "e23"
+    	}, {
+    		"id" : "24",
+    		"title": "Tray ok (24)",
+    		"value" : "e24"
+    	}, {
+    		"id" : "25",
+    		"title": "Tray not ok (25)",
+    		"value" : "e25"
+    	}, {
+    		"id" : "26",
+    		"title": "Add on part (26)",
+    		"value" : "e26"
+    	}, {
+    		"id" : "27",
+    		"title": "Process result rework (27)",
+    		"value" : "e27"
+    	}, {
+    		"id" : "28",
+    		"title": "Process result good (28)",
+    		"value" : "e28"
+    	}, {
+    		"id" : "29",
+    		"title": "Process result bad (29)",
+    		"value" : "e29"
+    	}, {
+    		"id" : "30",
+    		"title": "Print label (30)",
+    		"value" : "e30"
+    	}, {
+    		"id" : "31",
+    		"title": "Label printed (31)",
+    		"value" : "e31"
+    	}, {
+    		"id" : "32",
+    		"title": "Container full (32)",
+    		"value" : "e32"
+    	}, {
+    		"id" : "33",
+    		"title": "Data request by machine (33)",
+    		"value" : "e33"
+    	}, {
+    		"id" : "34",
+    		"title": "Check mes ready (34)",
+    		"value" : "e34"
+    	}, {
+    		"id" : "35",
+    		"title": "Container changed (35)",
+    		"value" : "e35"
+    	}, {
+    		"id" : "36",
+    		"title": "Check machine ready (36)",
+    		"value" : "e36"
+    	}, {
+    		"id" : "37",
+    		"title": "Start process (37)",
+    		"value" : "e37"
+    	}, {
+    		"id" : "38",
+    		"title": "Request new barcode (38)",
+    		"value" : "e38"
+    	}, {
+    		"id" : "39",
+    		"title": "Data quitt (39)",
+    		"value" : "e39"
+    	}, {
+    		"id" : "40",
+    		"title": "Next process step (40)",
+    		"value" : "e40"
+    	}, {
+    		"id" : "41",
+    		"title": "Reset signal quitt (41)",
+    		"value" : "e41"
+    	}, {
+    		"id" : "42",
+    		"title": "Verify barcode (42)",
+    		"value" : "e42"
+    	}, {
+    		"id" : "43",
+    		"title": "Barcode result quitt (43)",
+    		"value" : "e43"
+    	}, {
+    		"id" : "44",
+    		"title": "Verify result quitt (44)",
+    		"value" : "e44"
+    	}, {
+    		"id" : "45",
+    		"title": "Result stored (45)",
+    		"value" : "e45"
+    	}, {
+    		"id" : "46",
+    		"title": "Scan timeout (46)",
+    		"value" : "e46"
+    	}, {
+    		"id" : "47",
+    		"title": "Request scan (47)",
+    		"value" : "e47"
+    	}, {
+    		"id" : "48",
+    		"title": "Verify tray (48)",
+    		"value" : "e48"
+    	}, {
+    		"id" : "49",
+    		"title": "Tray result quitt (49)",
+    		"value" : "e49"
+    	}, {
+    		"id" : "50",
+    		"title": "Add on part quitt (50)",
+    		"value" : "e50"
+    	}, {
+    		"id" : "51",
+    		"title": "Life sign (51)",
+    		"value" : "e51"
+    	}, {
+    		"id" : "52",
+    		"title": "Add on part ok (52)",
+    		"value" : "e52"
+    	}, {
+    		"id" : "53",
+    		"title": "Add on part not ok (53)",
+    		"value" : "e53"
+    	}, {
+    		"id" : "54",
+    		"title": "Batch changed (54)",
+    		"value" : "e54"
+    	}, {
+    		"id" : "55",
+    		"title": "Request batch (55)",
+    		"value" : "e55"
+    	}, {
+    		"id" : "56",
+    		"title": "Batch changed quitt (56)",
+    		"value" : "e56"
+    	}, {
+    		"id" : "57",
+    		"title": "Common data (57)",
+    		"value" : "e57"
+    	}, {
+    		"id" : "58",
+    		"title": "Common data quitt (58)",
+    		"value" : "e58"
+    	}, {
+    		"id" : "59",
+    		"title": "Log out request (59)",
+    		"value" : "e59"
+    	}, {
+    		"id" : "60",
+    		"title": "Release inspection (60)",
+    		"value" : "e60"
+    	}, {
+    		"id" : "61",
+    		"title": "Machine state setup done (61)",
+    		"value" : "e61"
+    	}, {
+    		"id" : "62",
+    		"title": "Reset process (62)",
+    		"value" : "e62"
+    	}, {
+    		"id" : "63",
+    		"title": "Store process value (63)",
+    		"value" : "e63"
+    	}, {
+    		"id" : "64",
+    		"title": "Store disturbance reason (64)",
+    		"value" : "e64"
+    	}, {
+    		"id" : "65",
+    		"title": "Part nok barcode (65)",
+    		"value" : "e65"
+    	}, {
+    		"id" : "66",
+    		"title": "Store mes data event (66)",
+    		"value" : "e66"
+    	} ]    	  
     } ]
   }, {
     "name" : "errorrefdefinition",
@@ -990,6 +1944,26 @@
     "roles" : [ "sequence_start", "Activity", "sequence_end", "ActivitiesMorph", "all" ]
   }, {
     "type" : "node",
+    "id" : "ActionTask",
+    "title" : "Action",
+    "description" : "An automatic task with service logic",
+    "view" : "pickert/actiontask2.svg",
+    "icon" : "pickert/action.png",
+    "groups" : [ "APC" ],
+    "propertyPackages" : [ "elementbase", "baseattributes", "servicetaskbase" ],
+    "roles" : [ "sequence_start", "sequence_end", "all" ]
+  }, {
+    "type" : "node",
+    "id" : "StatusTask",
+    "title" : "Status",
+    "description" : "An automatic task with service logic",
+    "view" : "pickert/statustask.svg",
+    "icon" : "pickert/status.png",
+    "groups" : [ "APC" ],
+    "propertyPackages" : [ "elementbase", "baseattributes", "actiontaskbase", "asynchronousbase", "executionlistenersbase", "loopcharacteristics", "activity" ],
+    "roles" : [ "sequence_start", "Activity", "sequence_end", "ActivitiesMorph", "all" ]
+  }, {
+    "type" : "node",
     "id" : "ScriptTask",
     "title" : "Script task",
     "description" : "An automatic task with script logic",
@@ -1151,13 +2125,33 @@
   }, {
     "type" : "node",
     "id" : "CatchSignalEvent",
-    "title" : "Intermediate signal catching event",
+    "title" : "Event",
     "description" : "An intermediate catching event with a signal trigger",
     "view" : "intermediateevent/signal.catching.svg",
     "icon" : "catching/signal.png",
-    "groups" : [ "Intermediate Catching Events" ],
+    "groups" : [ "APC" ],
     "propertyPackages" : [ "elementbase", "baseattributes", "signalrefdefinition", "executionlistenersbase" ],
-    "roles" : [ "sequence_start", "sequence_end", "CatchEventsMorph", "all" ]
+    "roles" : [ "sequence_start", "sequence_end", "ActionTaskMorph", "all" ]
+  }, {
+    "type" : "node",
+    "id" : "CatchSignalEvents",
+    "title" : "Multiple Events",
+    "description" : "An intermediate catching event with a signal trigger",
+    "view" : "intermediateevent/signal.catching.svg",
+    "icon" : "catching/signal.png",
+    "groups" : [ "APC" ],
+    "propertyPackages" : [ "elementbase", "baseattributes_events", "multiplesignalrefdefinition", "executionlistenersbase" ],
+    "roles" : [ "sequence_start", "sequence_end", "ActionTaskMorph", "all" ]
+  },{
+    "type" : "node",
+    "id" : "CatchStatusEvent",
+    "title" : "Status",
+    "description" : "An intermediate catching event with a status trigger",
+    "view" : "pickert/status.catching.svg",
+    "icon" : "pickert/status.catching.png",
+    "groups" : [ "APC" ],
+    "propertyPackages" : [ "elementbase", "baseattributes", "statusrefdefinition", "executionlistenersbase" ],
+    "roles" : [ "sequence_start", "sequence_end", "ActionTaskMorph", "all" ]
   }, {
     "type" : "node",
     "id" : "CatchMessageEvent",
@@ -1296,23 +2290,18 @@
     } ],
     "morphingRules" : [ {
       "role" : "ActivitiesMorph",
-      "baseMorphs" : [ "UserTask" ],
+      "baseMorphs" : [ "StatusTask" ],
       "preserveBounds" : true
     }, {
-      "role" : "GatewaysMorph",
-      "baseMorphs" : [ "ExclusiveGateway" ]
+      "role" : "ActionTaskMorph",
+      "baseMorphs" : [ "ActionTask" ],
+      "preserveBounds" : true
     }, {
       "role" : "StartEventsMorph",
       "baseMorphs" : [ "StartNoneEvent" ]
     }, {
       "role" : "EndEventsMorph",
       "baseMorphs" : [ "StartNoneEvent" ]
-    }, {
-      "role" : "CatchEventsMorph",
-      "baseMorphs" : [ "CatchTimerEvent" ]
-    }, {
-      "role" : "ThrowEventsMorph",
-      "baseMorphs" : [ "ThrowNoneEvent" ]
     }, {
       "role" : "TextAnnotation",
       "baseMorphs" : [ "TextAnnotation" ]
