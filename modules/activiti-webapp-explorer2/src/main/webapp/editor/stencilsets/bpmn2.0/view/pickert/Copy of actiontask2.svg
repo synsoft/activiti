@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:oryx="http://www.b3mn.org/oryx"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="102"
+   height="60"
+   version="1.0"
+   id="svg2"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="servicetask.svg">
+  <metadata
+     id="metadata35">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1018"
+     id="namedview33"
+     showgrid="false"
+     inkscape:zoom="5.6078431"
+     inkscape:cx="42.504914"
+     inkscape:cy="58.59565"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g6" />
+  <defs
+     id="defs4" />
+  <oryx:magnets>
+    <oryx:magnet
+       oryx:cx="1"
+       oryx:cy="20"
+       oryx:anchors="left" />
+    <oryx:magnet
+       oryx:cx="1"
+       oryx:cy="40"
+       oryx:anchors="left" />
+    <oryx:magnet
+       oryx:cx="1"
+       oryx:cy="60"
+       oryx:anchors="left" />
+    <oryx:magnet
+       oryx:cx="25"
+       oryx:cy="79"
+       oryx:anchors="bottom" />
+    <oryx:magnet
+       oryx:cx="50"
+       oryx:cy="79"
+       oryx:anchors="bottom" />
+    <oryx:magnet
+       oryx:cx="75"
+       oryx:cy="79"
+       oryx:anchors="bottom" />
+    <oryx:magnet
+       oryx:cx="99"
+       oryx:cy="20"
+       oryx:anchors="right" />
+    <oryx:magnet
+       oryx:cx="99"
+       oryx:cy="40"
+       oryx:anchors="right" />
+    <oryx:magnet
+       oryx:cx="99"
+       oryx:cy="60"
+       oryx:anchors="right" />
+    <oryx:magnet
+       oryx:cx="25"
+       oryx:cy="1"
+       oryx:anchors="top" />
+    <oryx:magnet
+       oryx:cx="50"
+       oryx:cy="1"
+       oryx:anchors="top" />
+    <oryx:magnet
+       oryx:cx="75"
+       oryx:cy="1"
+       oryx:anchors="top" />
+    <oryx:magnet
+       oryx:cx="50"
+       oryx:cy="40"
+       oryx:default="yes" />
+  </oryx:magnets>
+  <g
+     pointer-events="fill"
+     oryx:minimumSize="50 40"
+     id="g6">
+    <defs
+       id="defs8">
+      <radialGradient
+         id="background"
+         cx="10%"
+         cy="10%"
+         r="100%"
+         fx="10%"
+         fy="10%">
+        <stop
+           offset="0%"
+           stop-color="#ffffff"
+           stop-opacity="1"
+           id="stop11" />
+        <stop
+           id="fill_el"
+           offset="100%"
+           stop-color="#ffffcc"
+           stop-opacity="1" />
+      </radialGradient>
+    </defs>
+    <rect
+       id="text_frame"
+       oryx:anchors="bottom top right left"
+       x="1"
+       y="1"
+       width="94"
+       height="60"
+       rx="10"
+       ry="10"
+       stroke="none"
+       stroke-width="0"
+       fill="none" />
+    <rect
+       id="bg_frame"
+       oryx:resize="vertical horizontal"
+       x="0"
+       y="0"
+       width="250"
+       height="60"
+       rx="10"
+       ry="10"
+       stroke="black"
+       stroke-width="1"
+       fill="url(#background) #ffffcc" />
+    <text
+       font-size="8"
+       id="text_name"
+       x="20"
+       y="45"
+       oryx:anchors="bottom top left"
+       stroke="black" />
+    <g
+       id="serviceTask"
+       transform="scale(0.7,0.7) translate(8,8)">
+      <g
+         id="g3082"
+         transform="matrix(0.44642857,0,0,0.44642857,4.8105248,0.91523881)">
+        <g
+           id="#b21f00ff">
+          <path
+			 oryx:anchors="top left"
+             id="path3050"
+             d="M 16.68,23.76 C 18.46,13.77 24.3,2.87 34.9,0.37 40.88,0.87 45.57,5.65 48.79,10.39 45.43,12.28 42.58,14.9 39.42,17.08 38.3,15.6 37,14.2 35.29,13.39 c -1.32,-0.62 -2.86,-1.3 -4.28,-0.51 -4.78,1.96 -6.07,7.53 -7.1,12.07 -1.58,2.31 -3.93,3.92 -6.55,4.86 -0.29,-2.01 -0.55,-4.02 -0.68,-6.05 z"
+             style="fill:#ea310f;stroke-width:0;;stroke-width:0;" />
+          <path
+			 oryx:anchors="top left"
+             id="path3053"
+             d="m 39.42,17.08 c 3.16,-2.18 6.01,-4.8 9.37,-6.69 4.03,6.16 6.17,13.49 6.15,20.85 6.26,3.95 12.56,8.99 14.75,16.4 -0.67,1.19 -1.33,2.4 -2.01,3.59 -2.57,-2.23 -6.01,-1.96 -9.14,-1.44 -1.43,-2.5 -3.38,-4.63 -5.57,-6.47 -1.59,4.81 -4.16,9.24 -7.32,13.19 4.38,1.27 9.06,1.82 13.58,0.97 2.31,-0.69 4.44,-1.83 6.51,-3.05 -1.39,4.41 -1.51,9.09 -0.61,13.62 -9.2,4.7 -20.05,2.07 -28.61,-2.8 -0.15,-3.95 0.07,-7.91 -0.06,-11.87 0.04,-1.23 -0.95,-2.1 -1.61,-3.01 0.24,-0.3 0.73,-0.88 0.97,-1.18 2.23,-3.34 4.38,-6.76 5.84,-10.52 1.25,-3.08 1.54,-6.42 1.46,-9.71 -0.02,-0.43 -0.08,-1.3 -0.11,-1.73 -0.18,-3.66 -1.6,-7.12 -3.59,-10.15 z"
+             style="fill:#ea310f;stroke-width:0;" />
+          <path
+		  	 oryx:anchors="top left"
+             id="path3056"
+             d="m 31.01,12.88 c 1.42,-0.79 2.96,-0.11 4.28,0.51 -3.1,3.41 -5.47,7.54 -6.46,12.07 -1.29,1.13 -2.9,1.56 -4.58,1.63 -0.09,-0.54 -0.26,-1.61 -0.34,-2.14 1.03,-4.54 2.32,-10.11 7.1,-12.07 z"
+             style="fill:#ea310f;stroke-width:0;" />
+          <path
+		  	 oryx:anchors="top left"
+             id="path3059"
+             d="m 16.18,30.29 c 0.04,-2.19 0.14,-4.37 0.5,-6.53 0.13,2.03 0.39,4.04 0.68,6.05 2.62,-0.94 4.97,-2.55 6.55,-4.86 0.08,0.53 0.25,1.6 0.34,2.14 1.68,-0.07 3.29,-0.5 4.58,-1.63 l -0.16,0.94 c 4.79,-0.35 9.66,-0.37 14.34,0.83 0.03,0.43 0.09,1.3 0.11,1.73 C 30.49,27.86 17.22,33.47 10.33,44.34 6.52,49.54 5.75,56.08 5.25,62.32 3.49,58.63 1.75,54.84 0.44,51.03 1.38,41.85 8.41,34.66 16.18,30.29 z"
+             style="fill:#ea310f;stroke-width:0;" />
+          <path
+		  	 oryx:anchors="top left"
+             id="path3062"
+             d="m 10.33,44.34 c 6.89,-10.87 20.16,-16.48 32.79,-15.38 0.08,3.29 -0.21,6.63 -1.46,9.71 -3.99,-0.6 -8.03,-0.65 -12.01,-0.01 -0.03,0.26 -0.1,0.78 -0.13,1.04 -0.22,0.97 -0.44,1.94 -0.67,2.9 -0.92,-0.94 -1.87,-1.85 -2.83,-2.75 -2.72,0.83 -5.31,2.09 -7.6,3.77 -2.26,1.98 -4.76,4.21 -5.22,7.35 -0.62,3.48 2.14,7.25 5.76,7.28 2.47,0.29 4.84,-0.56 7.13,-1.36 3.18,2.83 6.36,5.67 9.65,8.39 C 30.47,68.53 24.27,70.92 18,70.58 12.78,70.1 7.04,67.69 5.25,62.32 5.75,56.08 6.52,49.54 10.33,44.34 z"
+             style="fill:#ea310f;stroke-width:0;" />
+          <path
+		  	 oryx:anchors="top left"
+             id="path3065"
+             d="m 18.42,43.62 c 2.29,-1.68 4.88,-2.94 7.6,-3.77 0.96,0.9 1.91,1.81 2.83,2.75 0.23,-0.96 0.45,-1.93 0.67,-2.9 1.3,3.18 2.84,6.25 4.56,9.21 l 0.09,0.84 0.68,0.62 c 0.66,0.91 1.65,1.78 1.61,3.01 0.13,3.96 -0.09,7.92 0.06,11.87 -0.19,0.01 -0.59,0.02 -0.78,0.03 -3.29,-2.72 -6.47,-5.56 -9.65,-8.39 -3.23,-3.99 -5.97,-8.4 -7.67,-13.27 z"
+             style="fill:#ea310f;stroke-width:0;" />
+          <path
+		  	 oryx:anchors="top left"
+             id="path3068"
+             d="m 69.69,47.64 c 0.08,0.28 0.25,0.85 0.34,1.13 0.9,4.6 1.59,9.2 0.16,13.78 -0.99,2.37 -2.78,4.32 -5.06,5.5 -0.9,-4.53 -0.78,-9.21 0.61,-13.62 -2.07,1.22 -4.2,2.36 -6.51,3.05 0.66,-2.58 0.61,-5.32 -0.69,-7.69 3.13,-0.52 6.57,-0.79 9.14,1.44 0.68,-1.19 1.34,-2.4 2.01,-3.59 z"
+             style="fill:#ea310f;stroke-width:0;" />
+          <path
+		  	 oryx:anchors="top left"
+             id="path3071"
+             d="m 34.08,48.91 c 0.43,0.07 1.3,0.21 1.74,0.28 -0.24,0.3 -0.73,0.88 -0.97,1.18 l -0.68,-0.62 -0.09,-0.84 z"
+             style="opacity:0.57999998;fill:#ea310f;stroke-width:0;" />
+          <path
+		  	 oryx:anchors="top left"
+             id="path3074"
+             d="m 70.03,48.77 c 0.65,1.31 1.34,2.61 1.97,3.93 l 0,7.17 c -0.45,0.67 -1.36,2.01 -1.81,2.68 1.43,-4.58 0.74,-9.18 -0.16,-13.78 z"
+             style="opacity:0.45;fill:#ea310f;stroke-width:0;" />
+        </g>
+      </g>
+      <polygon
+         oryx:anchors="top left"
+         id="teethForeground"
+         style="opacity:1;fill:#ffffff;stroke:#000000"
+         points="15.392,5.064 17.954,2.502 20.347,4.895 17.786,7.455     18.729,9.732 22.353,9.732 22.353,13.115 18.731,13.115 17.788,15.392 20.351,17.955 17.958,20.347 15.397,17.786 13.12,18.729     13.12,22.353 9.737,22.353 9.737,18.731 7.46,17.788 4.897,20.35 2.506,17.958 5.066,15.397 4.124,13.12 0.5,13.12 0.5,9.737     4.121,9.737 5.065,7.461 2.503,4.898 4.895,2.506 7.455,5.066 9.732,4.125 9.732,0.5 13.116,0.5 13.116,4.121 " />
+      <circle
+         oryx:anchors="top left"
+         id="ringForeground"
+         style="opacity:1;fill:none;stroke:#000000"
+         cx="11.427"
+         cy="11.426"
+         r="3.714"
+         d="m 15.141,11.426 c 0,2.051185 -1.662814,3.714 -3.714,3.714 -2.0511855,0 -3.7139999,-1.662815 -3.7139999,-3.714 0,-2.0511859 1.6628144,-3.7140003 3.7139999,-3.7140003 2.051186,0 3.714,1.6628144 3.714,3.7140003 z" />
+      <text
+		oryx:anchors="top left"
+	   x="40.546153"
+	   y="27.255245"
+	   id="text3001"
+	   xml:space="preserve"
+	   style="font-size:20px;font-style:normal;font-weight:bold;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial">
+	   	Action123</text>
+
+    </g>
+  </g>
+</svg>

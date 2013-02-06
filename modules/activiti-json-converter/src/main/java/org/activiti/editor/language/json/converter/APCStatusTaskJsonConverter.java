@@ -26,7 +26,7 @@ import org.codehaus.jackson.node.ObjectNode;
 /**
  * @author Tijs Rademakers
  */
-public class ServiceTaskJsonConverter extends BaseBpmnJsonConverter {
+public class APCStatusTaskJsonConverter extends BaseBpmnJsonConverter {
 
   public static void fillTypes(Map<String, Class<? extends BaseBpmnJsonConverter>> convertersToBpmnMap,
       Map<Class<? extends BaseElement>, Class<? extends BaseBpmnJsonConverter>> convertersToJsonMap) {
@@ -36,15 +36,15 @@ public class ServiceTaskJsonConverter extends BaseBpmnJsonConverter {
   }
   
   public static void fillJsonTypes(Map<String, Class<? extends BaseBpmnJsonConverter>> convertersToBpmnMap) {
-    convertersToBpmnMap.put(STENCIL_TASK_SERVICE, ServiceTaskJsonConverter.class);
+    convertersToBpmnMap.put(STENCIL_TASK_STATUS, APCStatusTaskJsonConverter.class);
   }
   
   public static void fillBpmnTypes(Map<Class<? extends BaseElement>, Class<? extends BaseBpmnJsonConverter>> convertersToJsonMap) {
-    convertersToJsonMap.put(ServiceTask.class, ServiceTaskJsonConverter.class);
+    convertersToJsonMap.put(ServiceTask.class, APCStatusTaskJsonConverter.class);
   }
   
   protected String getStencilId(FlowElement flowElement) {
-    return STENCIL_TASK_SERVICE;
+    return STENCIL_TASK_STATUS;
   }
   
   protected void convertElementToJson(ObjectNode propertiesNode, FlowElement flowElement) {
@@ -112,7 +112,7 @@ public class ServiceTaskJsonConverter extends BaseBpmnJsonConverter {
       } else {
     	  System.out.println("Choice type...");
           FieldExtension field = new FieldExtension();
-          field.setFieldName("action");
+          field.setFieldName("status");
           field.setStringValue(fieldsNode.asText());
           task.getFieldExtensions().add(field);
       }

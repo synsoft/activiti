@@ -478,6 +478,19 @@ public abstract class BaseBpmnJsonConverter implements EditorJsonConstants, Sten
     }
   }
   
+	protected void convertJsonToSignalDefinitions(JsonNode objectNode, Event event) {
+//		List<String> signalRefs = getPropertyValueAsList(PROPERTY_SIGNALREF, objectNode);
+		List<String> signalRefs = getItemsValueAsList(PROPERTY_SIGNALREF, objectNode);
+		
+		for (String signalRef : signalRefs) {
+			if (StringUtils.isNotEmpty(signalRef)) {
+				SignalEventDefinition eventDefinition = new SignalEventDefinition();
+				eventDefinition.setSignalRef(signalRef);
+				event.getEventDefinitions().add(eventDefinition);
+			}
+		}
+	}
+  
   protected void convertJsonToMessageDefinition(JsonNode objectNode, Event event) {
     String messageRef = getPropertyValueAsString(PROPERTY_MESSAGEREF, objectNode);
     
@@ -529,6 +542,10 @@ public abstract class BaseBpmnJsonConverter implements EditorJsonConstants, Sten
   
   protected List<String> getPropertyValueAsList(String name, JsonNode objectNode) {
     return JsonConverterUtil.getPropertyValueAsList(name, objectNode);
+  }
+  
+  protected List<String> getItemsValueAsList(String name, JsonNode objectNode) {
+	    return JsonConverterUtil.getItemsValueAsList(name, objectNode);
   }
   
   protected JsonNode getProperty(String name, JsonNode objectNode) {

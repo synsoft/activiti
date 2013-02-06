@@ -77,6 +77,8 @@ public class BpmnJsonConverter implements EditorJsonConstants, StencilConstants,
     ReceiveTaskJsonConverter.fillTypes(convertersToBpmnMap, convertersToJsonMap);
     ScriptTaskJsonConverter.fillTypes(convertersToBpmnMap, convertersToJsonMap);
     ServiceTaskJsonConverter.fillTypes(convertersToBpmnMap, convertersToJsonMap);
+    APCActionTaskJsonConverter.fillTypes(convertersToBpmnMap, convertersToJsonMap);
+    APCStatusTaskJsonConverter.fillTypes(convertersToBpmnMap, convertersToJsonMap);
     UserTaskJsonConverter.fillTypes(convertersToBpmnMap, convertersToJsonMap);
     CallActivityJsonConverter.fillTypes(convertersToBpmnMap, convertersToJsonMap);
     
@@ -116,6 +118,8 @@ public class BpmnJsonConverter implements EditorJsonConstants, StencilConstants,
     
     DI_CIRCLES.add(STENCIL_EVENT_CATCH_MESSAGE);
     DI_CIRCLES.add(STENCIL_EVENT_CATCH_SIGNAL);
+    DI_CIRCLES.add(STENCIL_EVENTS_CATCH_SIGNAL);
+    DI_CIRCLES.add(STENCIL_EVENT_CATCH_STATUS);
     DI_CIRCLES.add(STENCIL_EVENT_CATCH_TIMER);
     
     DI_CIRCLES.add(STENCIL_EVENT_THROW_NONE);
@@ -133,6 +137,8 @@ public class BpmnJsonConverter implements EditorJsonConstants, StencilConstants,
     DI_RECTANGLES.add(STENCIL_TASK_RECEIVE);
     DI_RECTANGLES.add(STENCIL_TASK_SCRIPT);
     DI_RECTANGLES.add(STENCIL_TASK_SERVICE);
+    DI_RECTANGLES.add(STENCIL_TASK_ACTION);
+    DI_RECTANGLES.add(STENCIL_TASK_STATUS);
     DI_RECTANGLES.add(STENCIL_TASK_USER);
     
     DI_GATEWAY.add(STENCIL_GATEWAY_EVENT);

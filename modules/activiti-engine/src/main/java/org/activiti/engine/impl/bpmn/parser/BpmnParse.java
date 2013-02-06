@@ -822,47 +822,60 @@ public class BpmnParse implements BpmnXMLConstants {
 
   public ActivityImpl createIntermediateCatchEvent(IntermediateCatchEvent event, ScopeImpl scopeElement) {
     ActivityImpl nestedActivity = null;
-    EventDefinition eventDefinition = null;
+//    EventDefinition eventDefinition = null;
+    SignalEventDefinition probeEventDefinition = new SignalEventDefinition();
+    probeEventDefinition.setSignalRef("e33");
+    
     if (event.getEventDefinitions().size() > 0) {
-      eventDefinition = event.getEventDefinitions().get(0);
+    	if (event.getEventDefinitions().get(0) instanceof SignalEventDefinition) {
+    		SignalEventDefinition evt = (SignalEventDefinition) event.getEventDefinitions().get(0);
+    		if (evt.getSignalRef().equals("e1")) {
+    			event.getEventDefinitions().add(probeEventDefinition);
+    		}
+    	}
+//      eventDefinition = event.getEventDefinitions().get(0);
     }
    
-    if (eventDefinition == null) {
-      bpmnModel.addProblem("No event definition for intermediate catch event " + event.getId(), event);
-      nestedActivity = createActivityOnScope(event, ELEMENT_EVENT_CATCH, scopeElement);
-    } else {
-      
-      boolean isAfterEventBasedGateway = false;
-      String eventBasedGatewayId = null;
-      for (SequenceFlow sequenceFlow : event.getIncomingFlows()) {
-        FlowElement sourceElement = bpmnModel.getFlowElement(sequenceFlow.getSourceRef());
-        if (sourceElement instanceof EventGateway) {
-          isAfterEventBasedGateway = true;
-          eventBasedGatewayId = sourceElement.getId();
-          break;
-        }
-      }
-      
-      if (isAfterEventBasedGateway) {
-        ActivityImpl gatewayActivity = scopeElement.findActivity(eventBasedGatewayId);
-        nestedActivity = createActivityOnScope(event, ELEMENT_EVENT_CATCH, gatewayActivity);
-      } else {
-        nestedActivity = createActivityOnScope(event, ELEMENT_EVENT_CATCH, scopeElement);
-      }
-      
-      // Catch event behavior is the same for all types
-      nestedActivity.setActivityBehavior(activityBehaviorFactory.createIntermediateCatchEventActivityBehavior(event));
-      
-      if (eventDefinition instanceof TimerEventDefinition) {
-        createIntermediateTimerEventDefinition((TimerEventDefinition) eventDefinition, nestedActivity, isAfterEventBasedGateway);
-      } else if (eventDefinition instanceof SignalEventDefinition) {
-        createIntermediateSignalEventDefinition((SignalEventDefinition) eventDefinition, nestedActivity, isAfterEventBasedGateway);
-      } else if (eventDefinition instanceof MessageEventDefinition) {
-        createIntermediateMessageEventDefinition((MessageEventDefinition) eventDefinition, nestedActivity, isAfterEventBasedGateway);
-      } else {
-        bpmnModel.addProblem("Unsupported intermediate catch event type.", event);
-      }
-    }
+	for (EventDefinition eventDefinition : event.getEventDefinitions()) {
+		if (eventDefinition == null) {
+			bpmnModel.addProblem("No event definition for intermediate catch event " + event.getId(), event);
+			nestedActivity = createActivityOnScope(event, ELEMENT_EVENT_CATCH, scopeElement);
+		} else {
+
+			boolean isAfterEventBasedGateway = false;
+			String eventBasedGatewayId = null;
+			for (SequenceFlow sequenceFlow : event.getIncomingFlows()) {
+				FlowElement sourceElement = bpmnModel.getFlowElement(sequenceFlow.getSourceRef());
+				if (sourceElement instanceof EventGateway) {
+					isAfterEventBasedGateway = true;
+					eventBasedGatewayId = sourceElement.getId();
+					break;
+				}
+			}
+			
+			if (nestedActivity == null) {
+				if (isAfterEventBasedGateway) {
+					ActivityImpl gatewayActivity = scopeElement.findActivity(eventBasedGatewayId);
+					nestedActivity = createActivityOnScope(event, ELEMENT_EVENT_CATCH, gatewayActivity);
+				} else {
+					nestedActivity = createActivityOnScope(event, ELEMENT_EVENT_CATCH, scopeElement);
+				}
+
+				// Catch event behavior is the same for all types
+				nestedActivity.setActivityBehavior(activityBehaviorFactory.createIntermediateCatchEventActivityBehavior(event));
+			}
+
+			if (eventDefinition instanceof TimerEventDefinition) {
+				createIntermediateTimerEventDefinition((TimerEventDefinition) eventDefinition, nestedActivity, isAfterEventBasedGateway);
+			} else if (eventDefinition instanceof SignalEventDefinition) {
+				createIntermediateSignalEventDefinition((SignalEventDefinition) eventDefinition, nestedActivity, isAfterEventBasedGateway);
+			} else if (eventDefinition instanceof MessageEventDefinition) {
+				createIntermediateMessageEventDefinition((MessageEventDefinition) eventDefinition, nestedActivity, isAfterEventBasedGateway);
+			} else {
+				bpmnModel.addProblem("Unsupported intermediate catch event type.", event);
+			}
+		}
+	}
     
     createExecutionListenersOnScope(event.getExecutionListeners(), nestedActivity);
     

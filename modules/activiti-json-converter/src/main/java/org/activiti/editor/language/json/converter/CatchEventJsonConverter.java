@@ -40,6 +40,8 @@ public class CatchEventJsonConverter extends BaseBpmnJsonConverter {
     convertersToBpmnMap.put(STENCIL_EVENT_CATCH_TIMER, CatchEventJsonConverter.class);
     convertersToBpmnMap.put(STENCIL_EVENT_CATCH_MESSAGE, CatchEventJsonConverter.class);
     convertersToBpmnMap.put(STENCIL_EVENT_CATCH_SIGNAL, CatchEventJsonConverter.class);
+    convertersToBpmnMap.put(STENCIL_EVENTS_CATCH_SIGNAL, CatchEventJsonConverter.class);
+    convertersToBpmnMap.put(STENCIL_EVENT_CATCH_STATUS, CatchEventJsonConverter.class);
   }
   
   public static void fillBpmnTypes(Map<Class<? extends BaseElement>, Class<? extends BaseBpmnJsonConverter>> convertersToJsonMap) {
@@ -50,8 +52,12 @@ public class CatchEventJsonConverter extends BaseBpmnJsonConverter {
     IntermediateCatchEvent catchEvent = (IntermediateCatchEvent) flowElement;
     List<EventDefinition> eventDefinitions = catchEvent.getEventDefinitions();
     if (eventDefinitions.size() != 1) {
-      // return timer event as default;
-      return STENCIL_EVENT_CATCH_TIMER;
+        EventDefinition eventDefinition = eventDefinitions.get(0);
+        if (eventDefinition instanceof SignalEventDefinition)
+        	return STENCIL_EVENTS_CATCH_SIGNAL;
+        else
+        	// return timer event as default;
+        	return STENCIL_EVENT_CATCH_TIMER;
     }
     
     EventDefinition eventDefinition = eventDefinitions.get(0);
@@ -76,8 +82,10 @@ public class CatchEventJsonConverter extends BaseBpmnJsonConverter {
       convertJsonToTimerDefinition(elementNode, catchEvent);
     } else if (STENCIL_EVENT_CATCH_MESSAGE.equals(stencilId)) {
       convertJsonToMessageDefinition(elementNode, catchEvent);
-    } else if (STENCIL_EVENT_CATCH_SIGNAL.equals(stencilId)) {
+    } else if (STENCIL_EVENT_CATCH_SIGNAL.equals(stencilId) || STENCIL_EVENT_CATCH_STATUS.equals(stencilId)) {
       convertJsonToSignalDefinition(elementNode, catchEvent);
+    } else if (STENCIL_EVENTS_CATCH_SIGNAL.equals(stencilId)) {
+      convertJsonToSignalDefinitions(elementNode, catchEvent);
     }
     return catchEvent;
   }
