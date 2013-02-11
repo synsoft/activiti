@@ -1,5 +1,14 @@
 package org.activiti.editor.rest.model;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
+
 import org.activiti.bpmn.converter.BpmnXMLConverter;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.editor.constants.ModelDataJsonConstants;
@@ -8,6 +17,8 @@ import org.activiti.engine.ProcessEngines;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.Model;
+import org.activiti.engine.repository.ProcessDefinition;
+import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.node.ObjectNode;
 import org.restlet.resource.Get;
@@ -24,21 +35,22 @@ public class ModelDeployByKeyRest  extends ServerResource implements ModelDataJs
 	  
 	  
 	  @Get
-	  public Deployment deployByKey()
+	  public Deployment deployByKey() throws JsonProcessingException, IOException
 {
     	  
     	  System.out.println("--------------- ModelDeployByKeyRest deployByKey--------------------");  
         
-        
-        try {
-        
             
             String modelKey = (String) getRequest().getAttributes().get("modelKey");
+            
             System.out.println("modelKey: " + modelKey);
-	         Model modelData = repositoryService.createModelQuery().modelKey(modelKey).singleResult();
+	        
+            
+            Model modelData = repositoryService.createModelQuery().modelKey(modelKey).singleResult();
+            	
+            System.out.println("Model data id: " + modelData.getId());
 	         
 	         
-
 			ObjectNode modelNode = (ObjectNode) new ObjectMapper().readTree(repositoryService.getModelEditorSource(modelData.getId()));
 			
 			byte[] bpmnBytes = null;
@@ -51,113 +63,77 @@ public class ModelDeployByKeyRest  extends ServerResource implements ModelDataJs
 					.name(modelData.getName())
 					.addString(processName, new String(bpmnBytes)).deploy();
 			
+			
+			// save new deployment to modelData key
+			
+			modelData.setKey(deployment.getId());
+			repositoryService.saveModel(modelData);
+			
+			
 			return deployment;
             
-            
-        } catch(Exception e) {
-        	
-        	e.printStackTrace();
-        	
-        }
-        return null;
       }
+
 
 	  
 	  
-/*	  @Get
-	  public Model deployByKey()
-{
-    	  
-    	  System.out.println("--------------- ModelDeployByKeyRest deployByKey--------------------");  
-        
-        
-        try {
-        
-            
-            String modelKey = (String) getRequest().getAttributes().get("modelKey");
-	         Model modelData = repositoryService.createModelQuery().modelKey(modelKey).singleResult();
+	  // unused
+	  
+		public Model convertToEditableModel() throws UnsupportedEncodingException, XMLStreamException {
 
-			ObjectNode modelNode = (ObjectNode) new ObjectMapper()
-					.readTree(repositoryService.getModelEditorSource(modelData
-							.getId()));
-			byte[] bpmnBytes = null;
 
-			BpmnModel model = new BpmnJsonConverter()
-					.convertToBpmnModel(modelNode);
-			bpmnBytes = new BpmnXMLConverter().convertToXML(model);
+				System.out.println("--------------- convertToEditableModel  --------------------");
 
-			String processName = modelData.getName() + ".bpmn20.xml";
-			Deployment deployment = repositoryService.createDeployment()
-					.name(modelData.getName())
-					.addString(processName, new String(bpmnBytes)).deploy();
-			
-			return modelData;
-            
-            
-        } catch(Exception e) {
-        	
-        	e.printStackTrace();
-        	
-        }
-        return null;
-      }
-*/
-/*
-	    
-		public Model deployModel(String modelKey) throws JsonProcessingException, IOException {
-				
-		         Model modelData = repositoryService.createModelQuery().modelKey(modelKey).singleResult();
+	            String modelKey = (String) getRequest().getAttributes().get("modelKey");
+	            System.out.println("modelKey: " + modelKey);
 
-				ObjectNode modelNode = (ObjectNode) new ObjectMapper()
-						.readTree(repositoryService.getModelEditorSource(modelData
-								.getId()));
-				byte[] bpmnBytes = null;
 
-				BpmnModel model = new BpmnJsonConverter()
-						.convertToBpmnModel(modelNode);
-				bpmnBytes = new BpmnXMLConverter().convertToXML(model);
+				Model modelData = repositoryService.createModelQuery().modelKey(modelKey).singleResult();
 
-				String processName = modelData.getName() + ".bpmn20.xml";
-				Deployment deployment = repositoryService.createDeployment()
-						.name(modelData.getName())
-						.addString(processName, new String(bpmnBytes)).deploy();
-				
+				// if there is model
+				// then return existing model id
+				if (modelData != null)
+					return modelData;
+				ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery().deploymentId(modelKey).singleResult();
+
+				System.out.println("processDefinition.getDeploymentId(): " + processDefinition.getDeploymentId() + " processDefinition.getResourceName(): "
+						+ processDefinition.getResourceName());
+
+				InputStream bpmnStream = repositoryService.getResourceAsStream(processDefinition.getDeploymentId(), processDefinition.getResourceName());
+				XMLInputFactory xif = XMLInputFactory.newInstance();
+				InputStreamReader in = new InputStreamReader(bpmnStream, "UTF-8");
+				XMLStreamReader xtr = xif.createXMLStreamReader(in);
+				BpmnModel bpmnModel = new BpmnXMLConverter().convertToBpmnModel(xtr);
+
+				if (bpmnModel.getMainProcess() == null || bpmnModel.getMainProcess().getId() == null) {
+					System.out.println("error main process is null");
+					return null;
+				}
+				if (bpmnModel.getLocationMap().size() == 0) {
+					System.out.println("location map is null");
+					return null;
+				}
+
+				ObjectNode modelNode = null;
+
+				modelData = repositoryService.newModel();
+				modelData.setKey(modelKey);
+
+				BpmnJsonConverter converter = new BpmnJsonConverter();
+				modelNode = converter.convertToJson(bpmnModel);
+
+				ObjectNode modelObjectNode = new ObjectMapper().createObjectNode();
+				modelObjectNode.put(MODEL_NAME, processDefinition.getName());
+				modelObjectNode.put(MODEL_REVISION, 1);
+				modelObjectNode.put(MODEL_DESCRIPTION, processDefinition.getDescription());
+				modelData.setMetaInfo(modelObjectNode.toString());
+
+				repositoryService.saveModel(modelData);
+				repositoryService.addModelEditorSource(modelData.getId(), modelNode.toString().getBytes("utf-8"));
+
 				return modelData;
 
+
 		}
-		*/
-		
-		  
-		/*	  protected void deployModel() {
-				    try {
-				      
-				      ObjectNode modelNode = (ObjectNode) new ObjectMapper().readTree(repositoryService.getModelEditorSource(modelData.getId()));
-				      byte[] bpmnBytes = null;
-				      
-				      
-				      // this is for table editor that we don't use 
-				      if (SimpleTableEditorConstants.TABLE_EDITOR_CATEGORY.equals(modelData.getCategory())) {
-				        JsonConverter jsonConverter = new JsonConverter();
-				        WorkflowDefinition workflowDefinition = jsonConverter.convertFromJson(modelNode);
-				        
-				        WorkflowDefinitionConversion conversion = 
-				                ExplorerApp.get().getWorkflowDefinitionConversionFactory().createWorkflowDefinitionConversion(workflowDefinition);
-				        bpmnBytes = conversion.getbpm20Xml().getBytes("utf-8");
-				      } else {
-				        BpmnModel model = new BpmnJsonConverter().convertToBpmnModel(modelNode);
-				        bpmnBytes = new BpmnXMLConverter().convertToXML(model);
-				      }
-
-				      String processName = modelData.getName() + ".bpmn20.xml";
-				      Deployment deployment = repositoryService.createDeployment().name(modelData.getName()).addString(processName, new String(bpmnBytes)).deploy();
-
-				      ExplorerApp.get().getViewManager().showDeploymentPage(deployment.getId());
-
-				    } catch (Exception e) {
-				      e.printStackTrace();
-				      ExplorerApp.get().getNotificationManager().showErrorNotification(Messages.PROCESS_TOXML_FAILED, e);
-				    }
-				  }
-			  */
 			  
 }
