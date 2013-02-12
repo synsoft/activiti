@@ -1,5 +1,5 @@
 {
-  "title" : "BPMN 2.0",
+  "title" : "Pickert",
   "namespace" : "http://b3mn.org/stencilset/bpmn2.0#",
   "description" : "This is the BPMN 2.0 stencil set specification.",
   "propertyPackages" : [ {
@@ -1254,7 +1254,7 @@
 	    "properties" : [ {
 	      "id" : "signalref",
 	      "type" : "Choice",
-	      "title" : "Event",
+	      "title" : "Status",
 	      "value" : "",
 	      "description" : "Define the signal",
 	      "popular" : true,
@@ -1955,12 +1955,12 @@
   }, {
     "type" : "node",
     "id" : "StatusTask",
-    "title" : "Status",
+    "title" : "Set Status",
     "description" : "An automatic task with service logic",
     "view" : "pickert/statustask.svg",
     "icon" : "pickert/status.png",
     "groups" : [ "APC" ],
-    "propertyPackages" : [ "elementbase", "baseattributes", "actiontaskbase", "asynchronousbase", "executionlistenersbase", "loopcharacteristics", "activity" ],
+    "propertyPackages" : [ "elementbase", "baseattributes", "actiontaskbase" ],
     "roles" : [ "sequence_start", "Activity", "sequence_end", "ActivitiesMorph", "all" ]
   }, {
     "type" : "node",
@@ -2084,46 +2084,6 @@
     "roles" : [ "sequence_start", "sequence_end", "GatewaysMorph", "all" ]
   }, {
     "type" : "node",
-    "id" : "BoundaryErrorEvent",
-    "title" : "Boundary error event",
-    "description" : "A boundary event that catches a BPMN error",
-    "view" : "intermediateevent/error.svg",
-    "icon" : "catching/error.png",
-    "groups" : [ "Boundary Events" ],
-    "propertyPackages" : [ "elementbase", "baseattributes", "errorrefdefinition" ],
-    "roles" : [ "sequence_start", "BoundaryEventsMorph", "IntermediateEventOnActivityBoundary" ]
-  }, {
-    "type" : "node",
-    "id" : "BoundaryTimerEvent",
-    "title" : "Boundary timer event",
-    "description" : "A boundary event with a timer trigger",
-    "view" : "intermediateevent/timer.svg",
-    "icon" : "catching/timer.png",
-    "groups" : [ "Boundary Events" ],
-    "propertyPackages" : [ "elementbase", "baseattributes", "timerdefinition" ],
-    "roles" : [ "sequence_start", "BoundaryEventsMorph", "IntermediateEventOnActivityBoundary" ]
-  }, {
-    "type" : "node",
-    "id" : "BoundarySignalEvent",
-    "title" : "Boundary signal event",
-    "description" : "A boundary event with a signal trigger",
-    "view" : "intermediateevent/signal.catching.svg",
-    "icon" : "catching/signal.png",
-    "groups" : [ "Boundary Events" ],
-    "propertyPackages" : [ "elementbase", "baseattributes", "signalrefdefinition" ],
-    "roles" : [ "sequence_start", "BoundaryEventsMorph", "IntermediateEventOnActivityBoundary" ]
-  }, {
-    "type" : "node",
-    "id" : "CatchTimerEvent",
-    "title" : "Intermediate timer catching event",
-    "description" : "An intermediate catching event with a timer trigger",
-    "view" : "intermediateevent/timer.svg",
-    "icon" : "catching/timer.png",
-    "groups" : [ "Intermediate Catching Events" ],
-    "propertyPackages" : [ "elementbase", "baseattributes", "timerdefinition", "executionlistenersbase" ],
-    "roles" : [ "sequence_start", "sequence_end", "CatchEventsMorph", "all" ]
-  }, {
-    "type" : "node",
     "id" : "CatchSignalEvent",
     "title" : "Event",
     "description" : "An intermediate catching event with a signal trigger",
@@ -2152,36 +2112,6 @@
     "groups" : [ "APC" ],
     "propertyPackages" : [ "elementbase", "baseattributes", "statusrefdefinition", "executionlistenersbase" ],
     "roles" : [ "sequence_start", "sequence_end", "ActionTaskMorph", "all" ]
-  }, {
-    "type" : "node",
-    "id" : "CatchMessageEvent",
-    "title" : "Intermediate message catching event",
-    "description" : "An intermediate catching event with a message trigger",
-    "view" : "intermediateevent/message.catching.svg",
-    "icon" : "catching/message.png",
-    "groups" : [ "Intermediate Catching Events" ],
-    "propertyPackages" : [ "elementbase", "baseattributes", "messagerefdefinition", "executionlistenersbase" ],
-    "roles" : [ "sequence_start", "sequence_end", "CatchEventsMorph", "all" ]
-  }, {
-    "type" : "node",
-    "id" : "ThrowNoneEvent",
-    "title" : "Intermediate none throwing event",
-    "description" : "An intermediate event without a specific trigger",
-    "view" : "intermediateevent/none.svg",
-    "icon" : "throwing/none.png",
-    "groups" : [ "Intermediate Throwing Events" ],
-    "propertyPackages" : [ "elementbase", "baseattributes", "executionlistenersbase" ],
-    "roles" : [ "sequence_start", "ThrowEventsMorph", "sequence_end", "all" ]
-  }, {
-    "type" : "node",
-    "id" : "ThrowSignalEvent",
-    "title" : "Intermediate signal throwing event",
-    "description" : "An intermediate event with a signal trigger",
-    "view" : "intermediateevent/signal.throwing.svg",
-    "icon" : "throwing/signal.png",
-    "groups" : [ "Intermediate Throwing Events" ],
-    "propertyPackages" : [ "elementbase", "baseattributes", "signalrefdefinition", "executionlistenersbase" ],
-    "roles" : [ "sequence_start", "ThrowEventsMorph", "sequence_end", "all" ]
   }, {
     "type" : "node",
     "id" : "EndNoneEvent",
