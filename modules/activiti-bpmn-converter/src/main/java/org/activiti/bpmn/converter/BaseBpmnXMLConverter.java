@@ -417,21 +417,21 @@ public abstract class BaseBpmnXMLConverter implements BpmnXMLConstants {
     xtw.writeStartElement(ELEMENT_EVENT_MESSAGEDEFINITION);
     
     String messageRef = messageDefinition.getMessageRef();
-    if (StringUtils.isNotEmpty(messageRef)) {
-      // remove the namespace from the message id if set
-      if (messageRef.startsWith(model.getTargetNamespace())) {
-        messageRef = messageRef.replace(model.getTargetNamespace(), "");
-        messageRef = messageRef.replaceFirst(":", "");
-      } else {
-        for (String prefix : model.getNamespaces().keySet()) {
-          String namespace = model.getNamespace(prefix);
-          if (messageRef.startsWith(namespace)) {
-            messageRef = messageRef.replace(model.getTargetNamespace(), "");
-            messageRef = prefix + messageRef;
-          }
-        }
-      }
-    }
+//    if (StringUtils.isNotEmpty(messageRef)) {
+//      // remove the namespace from the message id if set
+//      if (messageRef.startsWith(model.getTargetNamespace())) {
+//        messageRef = messageRef.replace(model.getTargetNamespace(), "");
+//        messageRef = messageRef.replaceFirst(":", "");
+//      } else {
+//        for (String prefix : model.getNamespaces().keySet()) {
+//          String namespace = model.getNamespace(prefix);
+//          if (messageRef.startsWith(namespace)) {
+//            messageRef = messageRef.replace(model.getTargetNamespace(), "");
+//            messageRef = prefix + messageRef;
+//          }
+//        }
+//      }
+//    }
     writeDefaultAttribute(ATTRIBUTE_MESSAGE_REF, messageRef, xtw); 
     xtw.writeEndElement();
   }

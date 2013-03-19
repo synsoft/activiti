@@ -12,6 +12,7 @@
  */
 package org.activiti.editor.rest.model;
 
+import java.awt.Rectangle;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -67,12 +68,30 @@ public class ModelSaveRestResource extends ServerResource implements ModelDataJs
       repositoryService.addModelEditorSource(model.getId(), modelForm.getFirstValue("json_xml").getBytes("utf-8"));
       
       InputStream svgStream = new ByteArrayInputStream(modelForm.getFirstValue("svg_xml").getBytes("utf-8"));
+      
+      
+      //System.out.println(modelForm.getFirstValue("svg_xml"));
+      
       TranscoderInput input = new TranscoderInput(svgStream);
       
       PNGTranscoder transcoder = new PNGTranscoder();
       // Setup output
       ByteArrayOutputStream outStream = new ByteArrayOutputStream();
       TranscoderOutput output = new TranscoderOutput(outStream);
+      
+    
+      
+    //set the output width and height  
+     // transcoder.addTranscodingHint( PNGTranscoder.KEY_WIDTH, new Float( 2000) );
+     // transcoder.addTranscodingHint( PNGTranscoder.KEY_HEIGHT, new Float( 4000 ) );
+      
+      transcoder.addTranscodingHint( PNGTranscoder.KEY_WIDTH, new Float( 2000) );
+      transcoder.addTranscodingHint( PNGTranscoder.KEY_HEIGHT, new Float( 4000 ) );
+       
+    //set the aoi for scaling. Unsure what to do here.
+      if (getClientInfo().getAgent().contains("JavaFX/2.2"))
+    	  transcoder.addTranscodingHint( PNGTranscoder.KEY_AOI, new Rectangle( 4800, 4200, 2000, 4000 ) );
+     
       
       // Do the transformation
       transcoder.transcode(input, output);

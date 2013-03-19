@@ -51,7 +51,7 @@ public abstract class JobExecutor {
   protected boolean isActive = false;
   
   protected int maxJobsPerAcquisition = 3;
-  protected int waitTimeInMillis = 5 * 1000;
+  protected int waitTimeInMillis = 100;
   protected String lockOwner = UUID.randomUUID().toString();
   protected int lockTimeInMillis = 5 * 60 * 1000;
       
