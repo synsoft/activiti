@@ -48,6 +48,7 @@ public class ModelSaveRestResource extends ServerResource implements ModelDataJs
     
     try {
       
+  
       /*ObjectNode modelNode = (ObjectNode) objectMapper.readTree(modelForm.getFirstValue("json_xml"));
       JsonToBpmnExport converter = new JsonToBpmnExport(modelNode);
       byte[] bpmnBytes = converter.convert();
@@ -65,6 +66,8 @@ public class ModelSaveRestResource extends ServerResource implements ModelDataJs
       
       repositoryService.saveModel(model);
       
+      System.out.println("json_xml: " +  modelForm.getFirstValue("json_xml"));
+      System.out.println("svg_xml: " +  modelForm.getFirstValue("svg_xml"));
       repositoryService.addModelEditorSource(model.getId(), modelForm.getFirstValue("json_xml").getBytes("utf-8"));
       
       InputStream svgStream = new ByteArrayInputStream(modelForm.getFirstValue("svg_xml").getBytes("utf-8"));

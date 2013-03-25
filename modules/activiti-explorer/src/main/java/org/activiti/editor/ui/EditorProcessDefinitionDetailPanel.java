@@ -13,7 +13,11 @@
 package org.activiti.editor.ui;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.activiti.bpmn.converter.BpmnXMLConverter;
 import org.activiti.bpmn.model.BpmnModel;
@@ -53,6 +57,8 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.Select;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.Reindeer;
+
+import de.pickert.bpmn.PPWFile;
 
 
 /**
@@ -136,6 +142,8 @@ public class EditorProcessDefinitionDetailPanel extends DetailPanel {
     actionSelect.addItem(i18nManager.getMessage(Messages.PROCESS_DELETE));
     actionSelect.addItem(i18nManager.getMessage(Messages.PROCESS_DEPLOY));
     actionSelect.addItem(i18nManager.getMessage(Messages.PROCESS_EXPORT));
+    // TODO move to Messages
+    actionSelect.addItem("Export as PPW");
     
     actionSelect.setWidth("100px");
     actionSelect.setFilteringMode(Filtering.FILTERINGMODE_OFF);
@@ -153,6 +161,8 @@ public class EditorProcessDefinitionDetailPanel extends DetailPanel {
           deployModel();
         } else if (i18nManager.getMessage(Messages.PROCESS_EXPORT).equals(event.getProperty().getValue())) {
           exportModel();
+        } else if ("Export as PPW".equals(event.getProperty().getValue())) {
+          exportAsPPW();
         }
       }
     });
@@ -246,6 +256,91 @@ public class EditorProcessDefinitionDetailPanel extends DetailPanel {
     stream.setCacheTime(0);
     ExplorerApp.get().getMainWindow().open(stream);
   }
+/*  
+  protected void exportAsJSONModel()
+  {
+	    final FileResource stream = new FileResource(new File(""), ExplorerApp.get()) {
+	        
+	        private static final long serialVersionUID = 1L;
+
+	          
+	          @Override
+	          public DownloadStream getStream() {
+	            DownloadStream ds = null;
+	            try {
+	              System.out.println("Export as JSON started");
+	              BpmnJsonConverter jsonConverter = new BpmnJsonConverter();
+	              JsonNode editorNode = new ObjectMapper().readTree(repositoryService.getModelEditorSource(modelData.getId()));
+	              
+//	              BpmnModel bpmnModel = jsonConverter.convertToBpmnModel(editorNode);
+//	              BpmnXMLConverter xmlConverter = new BpmnXMLConverter();
+//	              byte[] bpmnBytes = xmlConverter.convertToXML(bpmnModel);
+//	              ByteArrayInputStream in = new ByteArrayInputStream(bpmnBytes);
+//	              String filename = bpmnModel.getMainProcess().getId() + ".bpmn20.json";
+	              
+	              BpmnModel bpmnModel = jsonConverter.convertToBpmnModel(editorNode);
+	              String filename = bpmnModel.getMainProcess().getId() + ".bpmn20.json";
+	              
+	              byte[] jsonBytes = repositoryService.getModelEditorSource(modelData.getId());
+	              
+	              ByteArrayInputStream in = new ByteArrayInputStream(jsonBytes);
+	              ds = new DownloadStream(in, "application/json", filename);
+	              // Need a file download POPUP
+	              ds.setParameter("Content-Disposition", "attachment; filename=" + filename);
+	            } catch(Exception e) {
+	              LOGGER.error("failed to export model to as JSON ", e);
+	              ExplorerApp.get().getNotificationManager().showErrorNotification(Messages.PROCESS_TOXML_FAILED, e);
+	            }
+	            return ds;
+	          }
+	      };
+	      stream.setCacheTime(0);
+	      ExplorerApp.get().getMainWindow().open(stream);
+	    }
+*/
+  
+  
+  protected void exportAsPPW()
+  {
+	    final FileResource stream = new FileResource(new File(""), ExplorerApp.get()) {
+	        
+	        private static final long serialVersionUID = 1L;
+
+	          
+	          @Override
+	          public DownloadStream getStream() {
+	            DownloadStream ds = null;
+	            try {
+	              LOGGER.debug("Export as ppw started");
+	              byte[] jsonBytes = repositoryService.getModelEditorSource(modelData.getId());
+	              byte[] svgBytes =  repositoryService.getModelEditorSourceExtra(modelData.getId());
+	              
+	              BpmnJsonConverter jsonConverter = new BpmnJsonConverter();
+	              JsonNode editorNode = new ObjectMapper().readTree(jsonBytes);             
+	              BpmnModel bpmnModel = jsonConverter.convertToBpmnModel(editorNode);
+	              BpmnXMLConverter xmlConverter = new BpmnXMLConverter();
+	              byte[] bpmnBytes = xmlConverter.convertToXML(bpmnModel); 
+	              String filename = bpmnModel.getMainProcess().getId() + ".bpmn20.ppw";
+	              
+	              
+	              PPWFile ppwFile = new PPWFile(jsonBytes, svgBytes, bpmnBytes);
+	              
+	              ByteArrayInputStream in = new ByteArrayInputStream( ppwFile.getByteArrayOutputStream().toByteArray());
+	              
+	              ds = new DownloadStream(in, "application/octet-stream", filename);
+	              // Need a file download POPUP
+	              ds.setParameter("Content-Disposition", "attachment; filename=\"" + filename + "\"");
+	            } catch(Exception e) {
+	              LOGGER.error("failed to export model to file as ppw ", e);
+	              ExplorerApp.get().getNotificationManager().showErrorNotification(Messages.PROCESS_TOXML_FAILED, e);
+	            }
+	            return ds;
+	          }
+	      };
+	      stream.setCacheTime(0);
+	      ExplorerApp.get().getMainWindow().open(stream);
+	    }
+
   
   protected void deployModel() {
     try {

@@ -125,7 +125,6 @@ public class CopyModelPopupWindow extends PopupWindow implements ModelDataJsonCo
           form.setComponentError(new UserError("The name field is required."));
           return;
         }
-        
         Model newModelData = repositoryService.newModel();
         
         ObjectNode modelObjectNode = new ObjectMapper().createObjectNode();

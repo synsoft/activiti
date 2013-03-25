@@ -53,10 +53,8 @@ public class ModelDeployByKeyRest  extends ServerResource implements ModelDataJs
 	         
 			ObjectNode modelNode = (ObjectNode) new ObjectMapper().readTree(repositoryService.getModelEditorSource(modelData.getId()));
 			
-			byte[] bpmnBytes = null;
-
 			BpmnModel model = new BpmnJsonConverter().convertToBpmnModel(modelNode);
-			bpmnBytes = new BpmnXMLConverter().convertToXML(model);
+			byte[] bpmnBytes = new BpmnXMLConverter().convertToXML(model);
 
 			String processName = modelData.getName() + ".bpmn20.xml";
 			Deployment deployment = repositoryService.createDeployment()
@@ -97,7 +95,7 @@ public class ModelDeployByKeyRest  extends ServerResource implements ModelDataJs
 				ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery().deploymentId(modelKey).singleResult();
 
 				System.out.println("processDefinition.getDeploymentId(): " + processDefinition.getDeploymentId() + " processDefinition.getResourceName(): "
-						+ processDefinition.getResourceName());
+				 		+ processDefinition.getResourceName());
 
 				InputStream bpmnStream = repositoryService.getResourceAsStream(processDefinition.getDeploymentId(), processDefinition.getResourceName());
 				XMLInputFactory xif = XMLInputFactory.newInstance();
