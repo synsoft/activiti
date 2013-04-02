@@ -36,6 +36,8 @@ public class ModelEditorJsonRestResource extends ServerResource implements Model
   
   @Get
   public ObjectNode getEditorJson() {
+	// TODO ADD authentication
+	// if(authenticate(SecuredResource.ADMIN) == false) return null;  
     ObjectNode modelNode = null;
     String modelId = (String) getRequest().getAttributes().get("modelId");
     

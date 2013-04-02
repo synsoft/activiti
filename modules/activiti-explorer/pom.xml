@@ -81,6 +81,15 @@
       <artifactId>h2</artifactId>
     </dependency>
 
+	<!-- rqm -->
+   <dependency>
+      <groupId>de.pickert.db</groupId>
+      <artifactId>rqmdb_all</artifactId>
+      <version>5.1.4</version>
+    </dependency>
+
+
+
     <!-- Spring -->
     <dependency>
       <groupId>org.springframework</groupId>

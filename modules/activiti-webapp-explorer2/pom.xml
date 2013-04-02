@@ -191,6 +191,12 @@
 		<version>1.3.0</version>
 	</dependency>
             
+            <!-- rqm -->
+   <dependency>
+      <groupId>de.pickert.db</groupId>
+      <artifactId>rqmdb_all</artifactId>
+      <version>5.1.4</version>
+    </dependency>
     
     <!-- Running example processes -->
     <dependency>

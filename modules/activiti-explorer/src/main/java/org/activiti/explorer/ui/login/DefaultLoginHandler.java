@@ -41,7 +41,10 @@ public class DefaultLoginHandler implements LoginHandler {
       User user = identityService.createUserQuery().userId(userName).singleResult();
       // Fetch and cache user data
       loggedInUser = new LoggedInUserImpl(user, password);
+      System.out.println("loggedInUser user: " + loggedInUser.getId() + "pass: " + loggedInUser.getPassword() );
       List<Group> groups = identityService.createGroupQuery().groupMember(user.getId()).list();
+      System.out.println("groups size: "  + groups.size()); 
+      
       for (Group group : groups) {
         if (Constants.SECURITY_ROLE.equals(group.getType())) {
           loggedInUser.addSecurityRoleGroup(group);

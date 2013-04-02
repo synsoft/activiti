@@ -51,6 +51,7 @@ public class UserEntityManager extends AbstractManager {
   }
 
   public UserEntity findUserById(String userId) {
+	  System.out.println("I am using UserEntity");
     return (UserEntity) getDbSqlSession().selectOne("selectUserById", userId);
   }
 
@@ -104,7 +105,9 @@ public class UserEntityManager extends AbstractManager {
   }
   
   public Boolean checkPassword(String userId, String password) {
+	System.out.println("Checking user password for userid: " + userId + " and pass: "+ password);
     User user = findUserById(userId);
+    System.out.println("returned user: " + user.getId() +" pass: "+ user.getPassword());
     if ((user != null) && (password != null) && (password.equals(user.getPassword()))) {
       return true;
     }

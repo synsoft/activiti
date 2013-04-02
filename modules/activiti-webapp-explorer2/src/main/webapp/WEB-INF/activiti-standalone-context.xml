@@ -39,6 +39,14 @@
   	<property name="transactionManager" ref="transactionManager" />
   	<property name="databaseSchemaUpdate" value="true" />
   	<property name="jobExecutorActivate" value="true" />
+  	
+  	<property name="customSessionFactories">
+     <list>
+            <bean class="de.pickert.bpmn.identity.mock.MockUserManagerFactory" />
+            <bean class="de.pickert.bpmn.identity.mock.MockGroupManagerFactory" />
+    </list>
+    </property>
+  	
     <property name="customFormTypes">
       <list>
         <bean class="org.activiti.explorer.form.UserFormType"/>   

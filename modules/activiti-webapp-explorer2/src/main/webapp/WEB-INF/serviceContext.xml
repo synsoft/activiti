@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context" 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd"> -->
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+                http://www.springframework.org/schema/beans
+                http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                http://www.springframework.org/schema/aop
+        		http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+        		http://www.springframework.org/schema/context
+        		http://www.springframework.org/schema/context/spring-context-3.0.xsd"
+        		>
+
+	<context:annotation-config />
+ 	<context:component-scan base-package="de.pickert.db.util, de.pickert.bpmn.identity.rqm" />
+
+	<!-- Base Manager Impl -->
+	<bean id="baseManagerImpl" class="de.pickert.business.service.impl.BaseManager" abstract="false">
+		<property name="jdbcDAO" ref="jdbcDAO" />
+		<property name="baseDAO" ref="baseDAO" />
+		
+		<property name="baseSqlDAO" ref="baseSqlDAO" />
+		<!-- <property name="dbUtils" ref="dbUtils"></property> -->
+		<!-- <property name="businessUtils" ref="businessUtils"></property> -->
+	</bean>
+
+	<!-- Part Manager Impl -->
+	<bean id="partManagerImpl" class="de.pickert.business.service.impl.PartManager" parent="baseManagerImpl">
+		<!-- <property name="partDAO" ref="partDAO" />  -->
+	</bean>
+
+	<!-- Web Part Manager Impl -->
+<!-- 	<bean id="webPartManagerImpl" class="de.pickert.business.service.impl.WebPartManager" parent="partManagerImpl">
+	</bean> -->
+
+	<!-- Assembly Manager Impl -->
+	<bean id="assemblyManagerImpl" class="de.pickert.business.service.impl.AssemblyManager" parent="baseManagerImpl">
+		<!-- <property name="assemblyDAO" ref="assemblyDAO" />  -->
+	</bean>
+
+	<!-- Web Assembly Manager Impl -->
+<!-- 	<bean id="webAssemblyManagerImpl" class="de.pickert.business.service.impl.WebAssemblyManager" parent="assemblyManagerImpl">
+	</bean> -->
+
+	<!-- System Manager Impl -->
+	<bean id="systemManagerImpl" class="de.pickert.business.service.impl.SystemManager" parent="baseManagerImpl">
+		<!-- 
+		<property name="systemDAO" ref="systemDAO" />
+		<property name="systemSqlDAO" ref="systemSqlDAO" />
+		 -->
+	</bean>
+
+	<!-- Web System Manager Impl -->
+<!-- 	<bean id="webSystemManagerImpl" class="de.pickert.business.service.impl.WebSystemManager" parent="systemManagerImpl">
+	</bean> -->
+
+	<!-- User Manager Impl -->
+	<bean id="userManagerImpl" class="de.pickert.business.service.impl.UserManager" parent="baseManagerImpl">
+		<!-- 
+		<property name="userDAO" ref="userDAO" />
+		<property name="userSqlDAO" ref="userSqlDAO" />
+		<property name="userRqmOptionsDAO" ref="userRqmOptionsDAO" />
+		<property name="userRightsDAO" ref="userRightsDAO" />
+		 -->
+	</bean>
+
+
+	<!-- Role Manager Impl -->
+	<bean id="roleManagerImpl" class="de.pickert.business.service.impl.RoleManager" parent="baseManagerImpl">
+		<!-- 
+		<property name="roleDAO" ref="roleDAO" />
+		<property name="roleSqlDAO" ref="roleSqlDAO" />
+		 -->
+	</bean>
+
+	<!-- Supplier Manager Impl -->
+	<bean id="supplierManagerImpl" class="de.pickert.business.service.impl.SupplierManager" parent="baseManagerImpl">
+		<!-- <property name="supplierDAO" ref="supplierDAO" />  -->
+	</bean>
+
+
+	<!-- Customer Manager Impl -->
+	<bean id="customerManagerImpl" class="de.pickert.business.service.impl.CustomerManager" parent="baseManagerImpl">
+		<!-- <property name="customerDAO" ref="customerDAO" />  -->
+	</bean>
+
+
+	<!-- Report Manager Impl -->
+	<bean id="reportManagerImpl" class="de.pickert.business.service.impl.ReportManager" parent="baseManagerImpl" />
+
+	<!-- Base Code Manager Impl -->
+	<bean id="baseCodeManagerImpl" class="de.pickert.business.service.impl.BaseCodeManager" parent="baseManagerImpl">
+		<!-- <property name="baseCodeDAO" ref="baseCodeDAO" />  -->
+	</bean>
+
+	<!-- Measure Manager Impl -->
+	<bean id="measureManagerImpl" class="de.pickert.business.service.impl.MeasureManager" parent="baseManagerImpl">
+		<!-- <property name="measureDAO" ref="measureDAO" />  -->
+	</bean>
+
+
+
+	<!-- Complaint Manager Impl -->
+	<bean id="complaintManagerImpl" class="de.pickert.business.service.impl.ComplaintManager" parent="baseManagerImpl">
+		<!-- 
+		<property name="complaintDAO" ref="complaintDAO" />
+		<property name="complaintSqlDAO" ref="complaintSqlDAO" />
+		 -->
+	</bean>
+
+
+	<!-- View Manager Impl -->
+	<!--<bean id="viewManagerImpl" class="de.pickert.business.service.impl.ViewManager" parent="baseManagerImpl" /> -->
+
+	<!-- Document Manager Impl -->
+	<bean id="documentManagerImpl" class="de.pickert.business.service.impl.DocumentManager" parent="baseManagerImpl">
+		<!-- <property name="documentDAO" ref="documentDAO" />  -->
+	</bean>
+
+
+	<!-- Cost Manager Impl -->
+	<bean id="costManagerImpl" class="de.pickert.business.service.impl.CostManager" parent="baseManagerImpl">
+		<!-- <property name="costDAO" ref="costDAO" />  -->
+	</bean>
+
+	<!-- Dreport Manager Impl -->
+	<bean id="dreportManagerImpl" class="de.pickert.business.service.impl.DreportManager" parent="baseManagerImpl">
+		<!-- <property name="dreportDAO" ref="dreportDAO" />  -->
+	</bean>
+
+	<!-- Auge Manager Impl -->
+	<bean id="augeManagerImpl" class="de.pickert.business.service.impl.AugeManager" parent="baseManagerImpl">
+		<!-- 
+		<property name="augeDAO" ref="augeDAO" />
+		<property name="augeSqlDAO" ref="augeSqlDAO" />
+		 -->
+	</bean>
+
+
+	<!-- Graphic Manager Impl -->
+	<bean id="graphicManagerImpl" class="de.pickert.business.service.impl.GraphicManager" parent="baseManagerImpl">
+	</bean>
+
+
+	<!-- Transaction template for business services used as parent proxy or all managers, from: http://blog.exis.com/colin/archives/2004/07/31/concise-transaction-definitions-spring-11/ -->
+	<bean id="txProxyTemplate" abstract="true" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="save*">PROPAGATION_REQUIRED</prop>
+				<prop key="persist*">PROPAGATION_REQUIRED</prop>
+				<prop key="delete*">PROPAGATION_REQUIRED</prop>
+				<prop key="update*">PROPAGATION_REQUIRED</prop>
+				<!-- <prop key="update*">PROPAGATION_REQUIRED,-ObjectStaleException</prop> -->
+				<prop key="*">PROPAGATION_REQUIRED,readOnly</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- Transaction declarations for business services. -->
+	<!-- Generic base manager can be used to do basic operations on any objects it's base class for all managers -->
+	<bean id="baseManager" parent="txProxyTemplate">
+		<property name="target" ref="baseManagerImpl" />
+		<!-- Override default transaction -->
+		<property name="transactionAttributes">
+			<props>
+				<prop key="save*">PROPAGATION_REQUIRED,-ObjectExistsException</prop>
+				<prop key="persist*">PROPAGATION_REQUIRED,-ObjectExistsException</prop>
+				<prop key="update*">PROPAGATION_REQUIRED,-ObjectNotExistsException</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- Base Code Manager -->
+	<bean id="baseCodeManager" parent="txProxyTemplate">
+		<property name="target" ref="baseCodeManagerImpl" />
+	</bean>
+
+	<!-- User Manager -->
+	<bean id="userManager" parent="txProxyTemplate">
+		<property name="target" ref="userManagerImpl" />
+	</bean>
+
+	<!-- Web User Manager -->
+<!-- 	<bean id="webUserManager" parent="txProxyTemplate">
+		<property name="target" ref="webUserManagerImpl" />
+	</bean> -->
+
+	<!-- Role Manager -->
+	<bean id="roleManager" parent="txProxyTemplate">
+		<property name="target" ref="roleManagerImpl" />
+	</bean>
+
+	<!-- Web Role Manager -->
+<!-- 	<bean id="webRoleManager" parent="txProxyTemplate">
+		<property name="target" ref="webRoleManagerImpl" />
+	</bean> -->
+
+	<!-- System Manager -->
+	<bean id="systemManager" parent="txProxyTemplate">
+		<property name="target" ref="systemManagerImpl" />
+	</bean>
+
+	<!-- Web System Manager -->
+<!-- 	<bean id="webSystemManager" parent="txProxyTemplate">
+		<property name="target" ref="webSystemManagerImpl" />
+	</bean> -->
+
+	<!-- Part Manager -->
+	<bean id="partManager" parent="txProxyTemplate">
+		<property name="target" ref="partManagerImpl" />
+	</bean>
+
+	<!-- Web Part Manager -->
+<!-- 	<bean id="webPartManager" parent="txProxyTemplate">
+		<property name="target" ref="webPartManagerImpl" />
+	</bean> -->
+
+	<!-- Assembly Manager -->
+	<bean id="assemblyManager" parent="txProxyTemplate">
+		<property name="target" ref="assemblyManagerImpl" />
+	</bean>
+
+	<!-- Web Assembly Manager -->
+<!-- 	<bean id="webAssemblyManager" parent="txProxyTemplate">
+		<property name="target" ref="webAssemblyManagerImpl" />
+	</bean> -->
+
+	<!-- Supplier Manager -->
+	<bean id="supplierManager" parent="txProxyTemplate">
+		<property name="target" ref="supplierManagerImpl" />
+	</bean>
+
+	<!-- Web Supplier Manager -->
+<!-- 	<bean id="webSupplierManager" parent="txProxyTemplate">
+		<property name="target" ref="webSupplierManagerImpl" />
+	</bean> -->
+
+	<!-- Customer Manager -->
+	<bean id="customerManager" parent="txProxyTemplate">
+		<property name="target" ref="customerManagerImpl" />
+	</bean>
+
+	<!-- Web Customer Manager -->
+<!-- 	<bean id="webCustomerManager" parent="txProxyTemplate">
+		<property name="target" ref="webCustomerManagerImpl" />
+	</bean> -->
+
+	<!-- Report Manager -->
+	<bean id="reportManager" parent="txProxyTemplate">
+		<property name="target" ref="reportManagerImpl" />
+	</bean>
+
+	<!-- Dict Manager -->
+	<!--	<bean id="dictManager" parent="txProxyTemplate">
+		<property name="target" ref="dictManagerImpl" />
+	</bean>
+-->
+	<!-- Measure Manager -->
+	<bean id="measureManager" parent="txProxyTemplate">
+		<property name="target" ref="measureManagerImpl" />
+	</bean>
+
+	<!-- Web Measure Manager -->
+<!--	<bean id="webMeasureManager" parent="txProxyTemplate">
+		<property name="target" ref="webMeasureManagerImpl" />
+	</bean>
+ -->
+	<!-- Complaint Manager -->
+	<bean id="complaintManager" parent="txProxyTemplate">
+		<property name="target" ref="complaintManagerImpl" />
+	</bean>
+
+	<!-- View Manager -->
+	<!--
+	<bean id="viewManager" parent="txProxyTemplate">
+		<property name="target" ref="viewManagerImpl" />
+	</bean>
+	-->
+	<!-- Document Manager -->
+	<bean id="documentManager" parent="txProxyTemplate">
+		<property name="target" ref="documentManagerImpl" />
+	</bean>
+
+
+
+	<!-- Cost Manager -->
+	<bean id="costManager" parent="txProxyTemplate">
+		<property name="target" ref="costManagerImpl" />
+	</bean>
+
+	<!-- Dreport Manager -->
+	<bean id="dreportManager" parent="txProxyTemplate">
+		<property name="target" ref="dreportManagerImpl" />
+	</bean>
+
+	<!-- Auge Manager -->
+	<bean id="augeManager" parent="txProxyTemplate">
+		<property name="target" ref="augeManagerImpl" />
+	</bean>
+	
+
+
+	<!-- Graphic Manager -->
+	<bean id="graphicManager" parent="txProxyTemplate">
+		<property name="target" ref="graphicManagerImpl" />
+	</bean>
+</beans>

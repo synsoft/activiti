@@ -8,13 +8,12 @@
        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd">
        
   <!-- This application context will be included in Alfresco as-is -->       
-
+ <!--
   <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" name="activitiUiPropertyPlaceholder">
     <property name="location" value="classpath:ui.properties" />
-    <!-- Allow other PropertyPlaceholderConfigurer to run as well -->
     <property name="ignoreUnresolvablePlaceholders" value="true"/>
   </bean>
-
+--> 
   <!-- Global scoped beans -->
   
   <bean name="navigatorManager" class="org.activiti.explorer.navigation.NavigatorManager" />
@@ -44,7 +43,7 @@
   <bean id="variableRendererManager" class="org.activiti.explorer.ui.variable.VariableRendererManager" />
   
   <bean name="componentFactories" class="org.activiti.explorer.ComponentFactories">
-    <property name="environment" value="${activiti.ui.environment}" />
+    <property name="environment" value="activiti" />
   </bean>
   
   <bean name="processDefinitionFilterFactory" class="org.activiti.explorer.ui.process.ProcessDefinitionFilterFactory">
@@ -57,7 +56,7 @@
   
   <!-- User cache usage depends on environment, hence the factory approach -->
   <bean name="userCache" class="org.activiti.explorer.cache.UserCacheFactoryBean">
-    <property name="environment" value="${activiti.ui.environment}" />
+    <property name="environment" value="activiti" />
   </bean>
   
   <!-- Session scoped UI beans -->
@@ -72,7 +71,7 @@
   </bean>
   
   <bean name="explorerApp" class="org.activiti.explorer.ExplorerApp" scope="session">
-    <property name="environment" value="${activiti.ui.environment}" />
+    <property name="environment" value="activiti" />
     <property name="userCache" ref="userCache" />
     <property name="i18nManager" ref="i18nManager" />
     <property name="viewManager" ref="viewManager" />
@@ -105,7 +104,7 @@
   
   <bean name="viewManager" class="org.activiti.explorer.ViewManagerFactoryBean" scope="session">
     <property name="mainWindow" ref="mainWindow" />
-    <property name="environment" value="${activiti.ui.environment}" />
+    <property name="environment" value="activiti" />
   </bean>
 
   <bean name="workflowDefinitionConversionFactory" class="org.activiti.workflow.simple.converter.WorkflowDefinitionConversionFactory">

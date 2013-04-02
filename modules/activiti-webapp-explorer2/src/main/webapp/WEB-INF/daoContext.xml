@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context" 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd"> -->
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+                http://www.springframework.org/schema/beans
+                http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+	<!-- Application context definition on Hibernate. -->
+	<!-- Configurer that replaces ${...} placeholders with values from a properties file -->
+	<!-- (in this case, JDBC-related settings for the dataSource definition below) -->
+<!-- 	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location" value="/WEB-INF/HibernateConfig.properties" />
+	</bean>
+ -->
+	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location" value="file:${catalina_home}/conf/HibernateConfig.properties"/>
+    	<property name="ignoreResourceNotFound" value="false" />
+	</bean>
+	
+	
+	<!-- Data source template for use in the connection pool. -->
+	<bean id="dataSourceTemplate" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	    <property name="driverClassName" value="${jdbc.driverClassName}" />
+	    <property name="url" value="${jdbc.url}" />
+	    <property name="username" value="${jdbc.username}" />
+	    <property name="password" value="${jdbc.password}" />
+   	</bean>
+
+	<bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">
+    	<!-- Refer to a separately created bean as a data source template to work around a quirk of Tomcat's class loader. -->
+    	<property name="dataSource" ref="dataSourceTemplate" />
+    	<property name="minIdle" value="10" />
+	    <property name="maxIdle" value="20" />
+	    <property name="testWhileIdle" value="true" />
+	    <property name="validationQuery" value="SELECT 1" />
+	</bean>
+
+	<!-- Hibernate SessionFactory -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+
+<!-- 		<property name="eventListeners">
+			<map>
+				<entry key="post-insert" value-ref="auditEventListener" />
+				<entry key="post-update" value-ref="auditEventListener" />
+				<entry key="post-delete" value-ref="auditEventListener" />
+				<entry key="pre-collection-update" value-ref="auditEventListener" />
+				<entry key="pre-collection-remove" value-ref="auditEventListener" />
+				<entry key="post-collection-recreate" value-ref="auditEventListener" />
+			</map>
+		</property>
+
+
+		<property name="entityInterceptor">
+			<bean class="de.pickert.db.dao.hibernate.interceptor.AuditTrailInterceptor" />
+		</property> 
+		-->
+
+		<property name="annotatedClasses">
+			<list>
+				<value>de.pickert.db.model.master_data.dictionary.PptDictDbBean
+                                </value>
+				<!-- Master data locking -->
+				<value>de.pickert.db.model.master_data.locking.PpbLockDbBean</value>
+				<!-- Master data user -->
+				<value>de.pickert.db.model.master_data.user.UserDbBean</value>
+				<value>de.pickert.db.model.master_data.user.UserGroupDbBean</value>
+				<value>de.pickert.db.model.master_data.user.UserpropsWebDbBean
+                                </value>
+				<value>de.pickert.db.model.master_data.user.UserpropsRqmDbBean
+                                </value>
+				<value>de.pickert.db.model.master_data.user.UserRightsDbBean</value>
+				<value>de.pickert.db.model.master_data.user.UserProfileDbBean
+                                </value>
+				<value>de.pickert.db.model.master_data.user.UserDefinedRightsDbBean
+                                </value>
+				<value>de.pickert.db.model.master_data.user.UserResponsibleDbBean
+                                </value>
+				<!-- Master data customer -->
+				<value>de.pickert.db.model.master_data.customer.CustomerDbBean
+                                </value>
+				<value>de.pickert.db.model.master_data.customer.CustomerContactDbBean
+                                </value>
+				<!-- master data supplier -->
+				<value>de.pickert.db.model.master_data.supplier.SupplierDbBean
+                                </value>
+				<!-- master data role -->
+				<value>de.pickert.db.model.master_data.role.PptRolesDbBean</value>
+				<value>de.pickert.db.model.master_data.role.PptRoleRightsDbBean
+                                </value>
+				<value>de.pickert.db.model.master_data.role.PptUserRolesDbBean
+                                </value>
+				<value>de.pickert.db.model.base.PpbTermDbBean</value>
+				<value>de.pickert.db.model.base.PpbTermHDbBean</value>
+				<value>de.pickert.db.model.base.PpbTeamDbBean</value>
+				<value>de.pickert.db.model.base.PpbNotesDbBean</value>
+				<value>de.pickert.db.model.base.PpbKostDbBean</value>
+				<!-- Master data system -->
+				<value>de.pickert.db.model.system.PpbLangDbBean</value>
+				<value>de.pickert.db.model.system.PpbSerlDbBean</value>
+				<value>de.pickert.db.model.system.PptSyspropsDbBean</value>
+				<value>de.pickert.db.model.system.PptIsocnDbBean</value>
+				<value>de.pickert.db.model.master_data.part.PssStklDbBean</value>
+				<value>de.pickert.db.model.master_data.part.PssArtDbBean</value>
+				<value>de.pickert.db.model.master_data.part.PartRespDbBean</value>
+				<value>de.pickert.db.model.master_data.part.RqmTbkpDbBean</value>
+				<value>de.pickert.db.model.master_data.part.RqmTblpDbBean</value>
+				<value>de.pickert.db.model.master_data.documents.PpbDocsDbBean</value>
+				<value>de.pickert.db.model.master_data.documents.PptDfilesDbBean</value>
+				<value>de.pickert.db.model.master_data.documents.PptDocstoreDbBean</value>
+				<value>de.pickert.db.model.master_data.texts.TextDbBean</value>
+				<value>de.pickert.db.model.master_data.texts.PptTextstoreDbBean</value>
+				<value>de.pickert.db.model.master_data.texts.PptTexteDbBean</value>
+				<value>de.pickert.db.model.fmea.RqmFmehDbBean</value>
+				<!-- TLL -->
+                                <value>de.pickert.db.model.tll.PssTllDbBean</value>
+                                <value>de.pickert.db.model.tll.PssKonstruktionDbBean</value>
+                                <value>de.pickert.db.model.tll.PssEinkaufDbBean</value>
+                                <value>de.pickert.db.model.tll.PssVertriebDbBean</value>
+                                <value>de.pickert.db.model.tll.PssQualitaetDbBean</value>
+                                <value>de.pickert.db.model.tll.PssLogistikErstDbBean</value>
+                                <value>de.pickert.db.model.tll.PssLogistikSerieDbBean</value>
+				<!-- Master data codes -->
+				<value>de.pickert.db.model.code.CodeOrgaDbBean</value>
+				<value>de.pickert.db.model.code.CodeCodesDbBean</value>
+				<value>de.pickert.db.model.code.CodeAugcodeDbBean</value>
+				<value>de.pickert.db.model.code.CodeDoktypDbBean</value>
+				<value>de.pickert.db.model.code.CodeTaetigkeitDbBean</value>
+				<value>de.pickert.db.model.code.CodeProcessDbBean</value>
+				<value>de.pickert.db.model.code.CodeFehlerkatDbBean</value>
+				<value>de.pickert.db.model.code.CodeEinheitDbBean</value>
+				<value>de.pickert.db.model.code.CodeMmalDbBean</value>
+				<value>de.pickert.db.model.code.CodeFehlerursaDbBean</value>
+				<value>de.pickert.db.model.code.CodeMassnahDbBean</value>
+				<value>de.pickert.db.model.code.CodeMassntypDbBean</value>
+				<value>de.pickert.db.model.code.CodeRelstepDbBean</value>
+				<value>de.pickert.db.model.code.CodeHeziDbBean</value>
+				<value>de.pickert.db.model.code.CodeKostartDbBean</value>
+				<value>de.pickert.db.model.code.CodeRightsDbBean</value>
+				<!-- Master data multi client -->
+				<value>de.pickert.db.model.multiclient.PptClienttabDbBean</value>
+				<value>de.pickert.db.model.multiclient.PptClientsDbBean</value>
+				<value>de.pickert.db.model.multiclient.PptClientcfgDbBean</value>
+				<!-- RM module -->
+				<value>de.pickert.db.model.rm.RmMainDbBean</value>
+				<value>de.pickert.db.model.rm.RmPostenDbBean</value>
+				<value>de.pickert.db.model.rm.RmTeilDbBean</value>
+				<value>de.pickert.db.model.rm.RmMkDbBean</value>
+				<value>de.pickert.db.model.rm.RmUrsaDbBean</value>
+				<value>de.pickert.db.model.rm.RmExtraDbBean</value>
+				<value>de.pickert.db.model.rm.BrmPostenDbBean</value>
+				<value>de.pickert.db.model.rm.dreport.Rm8dDbBean</value>
+				<value>de.pickert.db.model.rm.dreport.Rm8dKorrDbBean</value>
+				<value>de.pickert.db.model.rm.dreport.Rm8dMgmtDbBean</value>
+				<value>de.pickert.db.model.rm.dreport.Rm8dOrgaDbBean</value>
+				<value>de.pickert.db.model.rm.dreport.Rm8dProblDbBean</value>
+				<value>de.pickert.db.model.rm.dreport.Rm8dSofoDbBean</value>
+				<value>de.pickert.db.model.rm.dreport.Rm8dTeamDbBean</value>
+				<value>de.pickert.db.model.rm.dreport.Rm8dUrsaDbBean</value>
+				<value>de.pickert.db.model.rm.dreport.Rm8dVerbDbBean</value>
+				<!-- AuGe module -->
+				<value>de.pickert.db.model.auge.AugSlfixDbBean</value>
+				<value>de.pickert.db.model.auge.AugsDaslDbBean</value>
+				<value>de.pickert.db.model.auge.AugDaslDbBean</value>
+				<value>de.pickert.db.model.auge.AugsDaspDbBean</value>
+				<value>de.pickert.db.model.auge.AugDaspDbBean</value>
+				<value>de.pickert.db.model.auge.AugsDagpDbBean</value>
+				<value>de.pickert.db.model.auge.AugDagpDbBean</value>
+				<value>de.pickert.db.model.auge.AugDdfkDbBean</value>
+				<value>de.pickert.db.model.auge.AugsDaDbBean</value>
+				<value>de.pickert.db.model.auge.AugDaDbBean</value>
+				<value>de.pickert.db.model.auge.AugFoldDbBean</value>
+				<value>de.pickert.db.model.auge.AugsFoldDbBean</value>
+				<value>de.pickert.db.model.auge.AugDddbDbBean</value>
+				<value>de.pickert.db.model.auge.AugsDddbDbBean</value>
+				<!-- Audit module -->
+				<value>de.pickert.db.model.audit.AudAuditDbBean</value>
+				<value>de.pickert.db.model.audit.AudTauditDbBean</value>
+				<!-- BDE module -->
+				<value>de.pickert.db.model.mde.BdeMachDbBean</value>
+				<value>de.pickert.db.model.mde.BdeMachExtDbBean</value>
+				<!-- PBK module -->
+				<value>de.pickert.db.model.pbk.ProdAktionDbBean</value>
+				<value>de.pickert.db.model.pbk.ProdChgDbBean</value>
+				<value>de.pickert.db.model.pbk.ProdEreignisDbBean</value>
+				<!-- WEB System -->
+				<!-- DOK module -->
+				<value>de.pickert.db.model.dok.DoksMainDbBean</value>
+				<value>de.pickert.db.model.dok.DokMainDbBean</value>
+			</list>
+		</property>
+
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.connection.release_mode">${hibernate.connectionReleaseMode}</prop>
+				<prop key="hibernate.query.substitutions">true=1, false=0</prop>
+				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+
+				<!-- Hibernate: Automatically validates or exports schema DDL to the database when the SessionFactory is created. With create-drop, 
+					the database schema will be dropped when the SessionFactory is closed explicitly. e.g. validate | update | create | create-drop -->
+				<!-- <prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop> <prop key="hibernate.connection.autocommit">false</prop> -->
+
+				<!-- test for oracle about german umlaute <property name="hibernate.connection.useUnicode">true</property> <property name="hibernate.connection.characterEncoding">UTF-8</property> -->
+
+				<prop key="hibernate.show_sql">${hibernate.showSql}</prop>
+				<prop key="hibernate.format_sql">${hibernate.formatSQL}</prop>
+				<prop key="hibernate.use_sql_comments">${hibernate.useSqlComments}</prop>
+
+				<prop key="hibernate.generate_statistics">${hibernate.generateStatistics}</prop>
+
+				<!-- Use the C3P0 connection pool provider -->
+				<prop key="hibernate.c3p0.min_size">${hibernate.c3p0.min_size}</prop>
+				<prop key="hibernate.c3p0.max_size">${hibernate.c3p0.max_size}</prop>
+				<prop key="hibernate.c3p0.timeout">${hibernate.c3p0.timeout}</prop>
+				<prop key="hibernate.c3p0.max_statements">${hibernate.c3p0.max_statements}</prop>
+
+				<prop key="hibernate.cache.region.factory_class">${hibernate.cacheFactory}</prop>
+
+				<prop key="hibernate.cache.use_second_level_cache">${hibernate.useSecondLevelCache}</prop>
+				<prop key="hibernate.cache.use_query_cache">${hibernate.useQueryCache}</prop>
+				<!-- From Hibernate Manuel (Batch processing): "...If you are doing batch processing, it is absolutely critical that you enable the 
+					use of JDBC batching, if you intend to achieve reasonable performance. Set the JDBC batch size to a reasonable number (say, 10-50)..." -->
+				<prop key="hibernate.jdbc.batch_size">${jdbc.batchSize}</prop>
+
+			</props>
+		</property>
+	</bean>
+
+	<bean id="auditEventListener" class="org.hibernate.EmptyInterceptor" />
+
+	<!-- <bean id="clintesFilter" class="de.pickert.db.dao.hibernate.filter.ClintesFilter" /> -->
+	
+	
+	<!-- Transaction manager for a single Hibernate SessionFactory (alternative to JTA) -->
+	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+
+
+	<!-- JdbcDAO -->
+	<bean id="jdbcDAO" class="de.pickert.db.dao.jdbc.JdbcDAO">
+		<property name="dataSource">
+		<ref local="dataSource" />
+		</property>
+	</bean>
+
+	<!-- BaseDAO -->
+	<bean id="baseDAO" class="de.pickert.db.dao.hibernate.BaseDAO">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+		<property name="maxResults" value="5000" />
+		<!-- <property name="clintesFilter" ref="clintesFilter" /> -->
+	</bean>
+
+	<!-- BaseSqlDAO -->
+	<bean id="baseSqlDAO" class="de.pickert.db.dao.sql.BaseSqlDAO">
+		<property name="dataSource">
+			<ref local="dataSource" />
+		</property>
+	</bean>
+	
+	<!-- CriteriaDAO -->
+	<bean id="criteriaDAO" class="de.pickert.db.dao.hibernate.CriteriaDAO" parent="baseDAO">
+	</bean>
+	
+	<!-- BaseCodeDAO -->
+	<bean id="baseCodeDAO" class="de.pickert.db.dao.hibernate.code.BaseCodeDAO" parent="baseDAO">
+	</bean>
+
+	<!-- UserDAO -->
+	<bean id="userDAO" class="de.pickert.db.dao.hibernate.UserDAO" parent="baseDAO">
+	</bean>
+
+	<!-- UserSqlDAO -->
+	<bean id="userSqlDAO" class="de.pickert.db.dao.sql.UserSqlDAO" parent="baseSqlDAO">
+	</bean>
+
+	<!-- RoleDAO -->
+	<bean id="roleDAO" class="de.pickert.db.dao.hibernate.RoleDAO" parent="baseDAO">
+	</bean>
+
+	<!-- CustomerDAO -->
+	<bean id="customerDAO" class="de.pickert.db.dao.hibernate.CustomerDAO" parent="baseDAO">
+	</bean>
+
+	<!-- SupplierDAO -->
+	<bean id="supplierDAO" class="de.pickert.db.dao.hibernate.SupplierDAO" parent="baseDAO">
+	</bean>
+
+	<!-- UserWebOptionsDAO -->
+<!-- 	<bean id="userWebOptionsDAO" class="de.pickert.db.dao.hibernate.WebUserOptionsDAO" parent="baseDAO">
+	</bean> -->
+
+	<!-- UserWebOptionsSqlDAO -->
+<!-- 	<bean id="userWebOptionsSqlDAO" class="de.pickert.db.dao.sql.WebUserOptionsSqlDAO" parent="baseSqlDAO">
+	</bean> -->
+
+	<!-- UserRqmOptionsDAO -->
+	<bean id="userRqmOptionsDAO" class="de.pickert.db.dao.hibernate.UserOptionsDAO" parent="baseDAO">
+	</bean>
+
+	<!-- SystemDAO -->
+	<bean id="systemDAO" class="de.pickert.db.dao.hibernate.SystemDAO" parent="baseDAO">
+	</bean>
+
+	<!-- UserRightsDAO -->
+	<bean id="userRightsDAO" class="de.pickert.db.dao.hibernate.UserRightsDAO" parent="baseDAO">
+	</bean>
+
+	<!-- AssemblyDAO -->
+	<bean id="assemblyDAO" class="de.pickert.db.dao.hibernate.AssemblyDAO" parent="baseDAO">
+	</bean>
+
+	<!-- PartDAO -->
+	<bean id="partDAO" class="de.pickert.db.dao.hibernate.PartDAO" parent="baseDAO">
+	</bean>
+
+	<!-- systemSqlDAO -->
+	<bean id="systemSqlDAO" class="de.pickert.db.dao.sql.SystemSqlDAO" parent="baseSqlDAO">
+	</bean>
+
+	<!-- roleSqlDAO -->
+	<bean id="roleSqlDAO" class="de.pickert.db.dao.sql.RoleSqlDAO" parent="baseSqlDAO">
+	</bean>
+
+	<!-- DictDAO -->
+<!-- 	<bean id="dictDAO" class="de.pickert.db.dao.hibernate.DictDAO" parent="baseDAO">
+	</bean>
+ -->
+	<!-- MeasureDAO -->
+	<bean id="measureDAO" class="de.pickert.db.dao.hibernate.MeasureDAO" parent="criteriaDAO">
+	</bean>
+
+	<!-- ComplaintDAO -->
+	<bean id="complaintDAO" class="de.pickert.db.dao.hibernate.ComplaintDAO" parent="baseDAO">
+	</bean>
+
+	<!-- ComplaintSqlDAO -->
+	<bean id="complaintSqlDAO" class="de.pickert.db.dao.sql.ComplaintSqlDAO" parent="baseSqlDAO">
+	</bean>
+
+	<!-- DocumentDAO -->
+	<bean id="documentDAO" class="de.pickert.db.dao.hibernate.DocumentDAO" parent="baseDAO">
+	</bean>
+
+	<!-- CostDAO -->
+	<bean id="costDAO" class="de.pickert.db.dao.hibernate.CostDAO" parent="baseDAO">
+	</bean>
+
+	<!-- DreportDAO -->
+	<bean id="dreportDAO" class="de.pickert.db.dao.hibernate.DreportDAO" parent="baseDAO">
+	</bean>
+
+	<!-- AugeDAO -->
+	<bean id="augeDAO" class="de.pickert.db.dao.hibernate.AugeDAO" parent="baseDAO">
+	</bean>
+
+	<!-- AugeSqlDAO -->
+	<bean id="augeSqlDAO" class="de.pickert.db.dao.sql.AugeSqlDAO" parent="baseSqlDAO">
+	</bean>
+
+</beans>

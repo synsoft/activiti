@@ -30,5 +30,7 @@ public class EditorRestResource extends ServerResource {
     InputRepresentation editorResultRepresentation = new InputRepresentation(editorStream);
     editorResultRepresentation.setMediaType(MediaType.APPLICATION_XHTML);
     return editorResultRepresentation;
+    
+   
   }
 }
